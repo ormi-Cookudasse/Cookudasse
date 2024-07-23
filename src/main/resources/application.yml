@@ -1,0 +1,31 @@
+spring:
+  profiles:
+    include: secret
+  servlet:
+    multipart:
+      enabled: true
+
+  jpa:
+    open-in-view: true
+    hibernate:
+      ddl-auto: update
+      format_sql: true
+    show-sql: true
+    properties:
+      dialect: org.hibernate.dialect.MySQL8InnoDBDialect
+
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+
+server:
+  port: 8080
+  tomcat:
+    connection-timeout: 30000
+    uri-encoding: UTF-8
+  forward-headers-strategy: framework
+
+logging:
+  level:
+    org.hibernate.SQL: debug
+    org.hibernate.type: trace
