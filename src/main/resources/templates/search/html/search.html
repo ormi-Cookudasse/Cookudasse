@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mouse Recipe</title>
+    <link rel="stylesheet" href="../css/search.css">
+</head>
+<body>
+<header>
+    <a href="foodHome.html" class="logo">
+        <img src="../img/mouse.png" alt="Mouse Logo">
+    </a>
+
+    <div class="search-container">
+        <select>
+            <option value="">All Categories</option>
+            <option value="korean">KOREAN</option>
+            <option value="chinese">CHINESE</option>
+            <option value="italian">ITALIAN</option>
+            <option value="japanese">JAPANESE</option>
+            <option value="dessert">DESSERT</option>
+        </select>
+        <input type="text" placeholder="Search">
+        <button type="submit">
+            <img src="../img/searchIcon-black.png">
+        </button>
+    </div>
+
+    <nav>
+        <a href="signup.html">SIGN UP</a>
+        <a href="login.html">LOGIN</a>
+    </nav>
+</header>
+
+<div id="mouse_intro">
+    <img src="../img/mouse.png" alt="Mouse Logo">
+    <h2>mouse</h2>
+    <p>Tagline Here</p>
+</div>
+
+<main>
+    <div class="food-grid">
+        <div class="food-items">
+            <div class="food-item">
+                <!-- TODO 이미지, 제목, 조회수, 추천수 데이터 요청 받아서 해당하는 곳에 로직 구현-->
+                <img src="../img/food.png" alt="foodname1">
+                <p class="foodname">foodname</p>
+                <div>
+                    <p class="view">view</p>
+                    <p class="like">like</p>
+                </div>
+            </div>
+            <div class="food-item">
+                <img src="../img/food.png" alt="foodname1">
+                <p class="foodname">foodname</p>
+                <div>
+                    <p class="view">view</p>
+                    <p class="like">like</p>
+                </div>
+            </div>
+            <div class="food-item">
+                <img src="../img/food.png" alt="foodname1">
+                <p class="foodname">foodname</p>
+                <div>
+                    <p class="view">view</p>
+                    <p class="like">like</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<div class="floating-buttons">
+    <a href="newRecipe.html" id="add-recipe" title="레시피 추가">+</a>
+</div>
+<a href="#" id="scroll-to-top" title="Go to top">↑</a>
+
+<script src="../script/search.js"></script>
+</body>
+</html>
