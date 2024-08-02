@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>글 조회 - 요리조리</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <img src="logo.png" alt="요리조리 로고" class="logo" />
+      </header>
+      <main class="post-view">
+        <h1 id="post-title"></h1>
+        <div class="post-info">
+          <p>카테고리: <span id="post-category"></span></p>
+        </div>
+        <div class="post-content">
+          <h2>요리재료:</h2>
+          <p id="post-ingredients"></p>
+          <h2>요리 레시피:</h2>
+          <div id="post-recipe"></div>
+        </div>
+        <div class="reaction-buttons">
+          <button class="reaction-btn">👍</button>
+          <button class="reaction-btn">❤️</button>
+          <button class="reaction-btn">😆</button>
+          <button class="reaction-btn">😮</button>
+          <button class="reaction-btn">😢</button>
+        </div>
+        <div class="action-buttons">
+          <button class="btn btn-secondary">조회수</button>
+          <button class="btn btn-primary">수정하기</button>
+          <button class="btn btn-primary">삭제하기</button>
+        </div>
+      </main>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>

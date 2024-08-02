@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>글 작성 - 요리조리</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <img src="logo.png" alt="요리조리 로고" class="logo" />
+      </header>
+      <main>
+        <form id="post-form">
+          <div class="form-group">
+            <label for="category">카테고리:</label>
+            <select id="category" required>
+              <option value="">게시판을 선택해주세요</option>
+              <option value="국물요리">국물요리</option>
+              <option value="밥요리">밥요리</option>
+              <option value="디저트">디저트</option>
+              <option value="면요리">면요리</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="title">요리이름:</label>
+            <input type="text" id="title" required />
+          </div>
+          <div class="form-group">
+            <label for="ingredients">요리재료:</label>
+            <input type="text" id="ingredients" required />
+          </div>
+          <div class="form-group">
+            <label for="recipe">요리 레시피:</label>
+            <textarea id="recipe" required></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="photo">사진첨부</label>
+            <input type="file" name="photo" accept="image/*" multiple />
+            <label for="video">동영상첨부</label>
+            <input type="file" name="video" accept="video/*" />
+          </div>
+
+          <div class="button-group">
+            <button type="submit" class="btn btn-primary">저장</button>
+            <button type="button" class="btn btn-secondary">수정하기</button>
+          </div>
+        </form>
+      </main>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
