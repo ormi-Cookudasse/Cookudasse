@@ -1,7 +1,7 @@
-package com.ormi.cookudasse.repository;
+package com.ormi.cookudasse.post.repository;
 
 
-import com.ormi.cookudasse.entitiy.Post;
+import com.ormi.cookudasse.post.entitiy.Post;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

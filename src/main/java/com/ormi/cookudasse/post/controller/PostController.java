@@ -1,12 +1,12 @@
-package com.ormi.cookudasse.controller;
+package com.ormi.cookudasse.post.controller;
 
-import com.ormi.cookudasse.dto.request.PostRequest;
-import com.ormi.cookudasse.dto.response.PostSaveResponse;
-import com.ormi.cookudasse.entitiy.FoodCategory;
-import com.ormi.cookudasse.entitiy.Post;
-import com.ormi.cookudasse.entitiy.PostDetail;
-import com.ormi.cookudasse.entitiy.User;
-import com.ormi.cookudasse.service.PostService;
+import com.ormi.cookudasse.post.dto.request.PostRequest;
+import com.ormi.cookudasse.post.dto.response.PostSaveResponse;
+import com.ormi.cookudasse.post.entitiy.FoodCategory;
+import com.ormi.cookudasse.post.entitiy.Post;
+import com.ormi.cookudasse.post.entitiy.PostDetail;
+import com.ormi.cookudasse.post.entitiy.User;
+import com.ormi.cookudasse.post.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

@@ -1,4 +1,4 @@
-package com.ormi.cookudasse.entitiy;
+package com.ormi.cookudasse.post.entitiy;
 
 
 import jakarta.persistence.*;

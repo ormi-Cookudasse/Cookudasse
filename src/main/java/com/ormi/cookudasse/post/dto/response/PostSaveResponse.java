@@ -1,6 +1,6 @@
-package com.ormi.cookudasse.dto.response;
+package com.ormi.cookudasse.post.dto.response;
 
-import com.ormi.cookudasse.entitiy.PostDetail;
+import com.ormi.cookudasse.post.entitiy.PostDetail;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

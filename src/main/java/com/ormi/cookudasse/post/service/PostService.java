@@ -1,13 +1,13 @@
-package com.ormi.cookudasse.service;
+package com.ormi.cookudasse.post.service;
 
 
-import com.ormi.cookudasse.dto.request.PostRequest;
-import com.ormi.cookudasse.dto.response.PostSaveResponse;
-import com.ormi.cookudasse.entitiy.Post;
-import com.ormi.cookudasse.entitiy.PostDetail;
-import com.ormi.cookudasse.entitiy.User;
-import com.ormi.cookudasse.repository.PostDetailRepository;
-import com.ormi.cookudasse.repository.PostRepository;
+import com.ormi.cookudasse.post.dto.request.PostRequest;
+import com.ormi.cookudasse.post.dto.response.PostSaveResponse;
+import com.ormi.cookudasse.post.entitiy.Post;
+import com.ormi.cookudasse.post.entitiy.PostDetail;
+import com.ormi.cookudasse.post.entitiy.User;
+import com.ormi.cookudasse.post.repository.PostDetailRepository;
+import com.ormi.cookudasse.post.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
