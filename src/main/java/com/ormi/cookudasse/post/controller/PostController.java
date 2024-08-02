@@ -22,12 +22,6 @@ import java.util.List;
 public class PostController {
     private final PostService postService;
 
-//    @GetMapping("/")
-//    public String home(Model model) {
-//        List<Post> posts = postService.getAllPosts();
-//        model.addAttribute("posts", posts);
-//        return "home";
-//    }
 
     @GetMapping("/write")
     public String showWriteForm(Model model) {
@@ -35,15 +29,15 @@ public class PostController {
         model.addAttribute("foodCategories", FoodCategory.values());
         return "writePost";
     }
-
     @PostMapping(value = "/write", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<PostSaveResponse> createPost(@ModelAttribute PostRequest postRequest,
-                                                       @RequestPart(value = "file", required = false) MultipartFile file) {
+    public String createPost(@ModelAttribute PostRequest postRequest,
+                             @RequestPart(value = "file", required = false) MultipartFile file) {
         User user = new User(); // 임시 사용자 생성
         user.setId(1L);
-        PostSaveResponse response = postService.createPost(postRequest, user, file);
-        return ResponseEntity.ok(response);
+        postService.createPost(postRequest, user, file);
+        return "redirect:/";
     }
+
 
     @GetMapping("/post/{id}")
     public String showPost(@PathVariable Long id, Model model) {

@@ -20,7 +20,7 @@ public class PostService {
     private final PostRepository postRepository;
     private final PostDetailRepository postDetailRepository;
 
-    public PostSaveResponse createPost(PostRequest postRequest, User user, MultipartFile file) {
+    public Post createPost(PostRequest postRequest, User user, MultipartFile file) {
 //        User findUser = userRepository.findById(user.getUserId~); // TODO 추후 로그인 방식 정해지면 수정 필요(entity X dto 생성하거나 user의 id 만 받아온 뒤, 해당 UserRepository 에서 조회해서 가져온 user를 저장!
 
         PostDetail postDetail = PostDetail.builder()
@@ -44,9 +44,8 @@ public class PostService {
             post.setImageUrl(fileUrl);
         }
 
-        Post savedPost = postRepository.save(post);
+        return postRepository.save(post);
 
-        return new PostSaveResponse(savedPost.getId());
 
     }
     private String saveFileAndGetUrl(MultipartFile file) {
