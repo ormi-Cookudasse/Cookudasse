@@ -1,15 +1,16 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Mouse 요리 블로그</title>
-    <link rel="stylesheet" th:href="@{/css/home.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/home.css}"/>
+<!--    <link rel="stylesheet" href="../static/css/home.css"/>-->
 </head>
 <body>
 <header>
     <a href="home.html" class="logo">
-        <img th:src="@{/img/logo.png}" alt="Mouse Logo"/>
+        <img th:src="@{/css/logo.png}" alt="Mouse Logo">
     </a>
 
     <div class="search-container">
@@ -22,20 +23,27 @@
         </select>
         <input type="text" placeholder="Search"/>
         <button type="submit">
-            <img th:src="@{/img/searchicon-black.png}"/>
+            <img th:src="@{/css/searchicon-black.png}"/>
         </button>
     </div>
 
+<!--    <nav>-->
+<!--        <a href="/api/auth/login">LOGIN</a>-->
+<!--    </nav>-->
     <nav>
-        <a href="/api/auth/signup">SIGN UP</a>
-        <a href="/api/auth/login">LOGIN</a>
+        <th:block th:if="${session.user == null}">
+            <a href="/api/auth/login">LOGIN</a>
+        </th:block>
+        <th:block th:if="${session.user != null}">
+            <a href="/api/admin/users">My Page</a>
+        </th:block>
     </nav>
+
 </header>
 
 <div id="mouse_intro">
-    <img th:src="@{/img/logo.png}" alt="Mouse Logo"/>
-    <h2>mouse</h2>
-    <p>Tagline Here</p>
+    <img th:src="@{/css/logo.png}" alt="Mouse Logo"/>
+    <h2>다 함께 cook!</h2>
 </div>
 
 <nav id="category_nav">
@@ -61,9 +69,9 @@
     <div id="recipe_grid" class="section">
         <div th:each="post : ${posts}" class="post-item">
             <a th:href="@{'/post/' + ${post.postId}}">
-                <div>
+                <div class="post-item-each">
                     <h2 th:text="${post.postDetail.postTitle}"></h2>
-                    <img src="" alt="food img">
+<!--                    <img src="" alt="food img">-->
                     <p th:text="${post.postDetail.foodCategory}"></p>
                 </div>
             </a>
