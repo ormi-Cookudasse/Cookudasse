@@ -35,12 +35,14 @@
     </div>
 
     <div class="action-buttons">
+
       <div class="view-count">
         조회수: <span th:text="${post.postView}">0</span>
       </div>
       <a th:href="@{/post/{id}/edit(id=${post.postDetailId})}">수정하기</a>
       <form th:action="@{/post/{id}/delete(id=${post.postDetailId})}" method="post" onsubmit="return confirm('정말로 삭제하시겠습니까?');">
         <button type="submit">삭제하기</button>
+        <a class="button" th:href="@{/}">홈으로</a>
       </form>
     </div>
   </div>
