@@ -44,6 +44,7 @@ public class PostController {
     @GetMapping("/post/{id}")
     public String showPost(@PathVariable Long id, Model model) {
         Post post = postService.getPostById(id);
+        postService.incrementView(id);  // 조회수 증가
         model.addAttribute("post", post.getPostDetail());
         return "postDetail";
     }

@@ -64,6 +64,14 @@ public class PostService {
         postDetailRepository.save(postDetail);
         return postDetail.getPostLike();
     }
+    @Transactional
+    public int incrementView(Long postId) {
+        Post post = getPostById(postId);
+        PostDetail postDetail = post.getPostDetail();
+        postDetail.setPostView(postDetail.getPostView() + 1);
+        postDetailRepository.save(postDetail);
+        return postDetail.getPostView();
+    }
 
     public List<Post> getAllPosts() {
         return postRepository.findAllByOrderByCreatedAtDesc();
