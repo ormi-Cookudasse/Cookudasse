@@ -46,26 +46,7 @@
 </nav>
 
 <main>
-<!--  <div id="notice_grid" class="section">-->
-<!--    <h3>공지사항</h3>-->
-<!--    <a href="/api/notice/write" id="add-notice" title="공지사항 추가">공지사항 작성</a>-->
-<!--    <div th:each="notice : ${notices}" class="notice-item">-->
-<!--      <a th:href="@{'/api/notice/' + ${notice.id}}">-->
-<!--        <p th:text="${notice.title}"></p>-->
-<!--      </a>-->
-<!--    </div>-->
-<!--  </div>-->
-  <!--        <div class="notice">-->
-  <!--          <a href="#" class="active">공지사항</a>-->
-  <!--          <p>[웹접근성] 모바일에도 불편함 없이...</p>-->
-  <!--          <p>[가이드라인] 모바일에도 불편함 게시판...</p>-->
-  <!--          <p>[웹접근성] 모바일에도 불편함 없이...</p>-->
-  <!--          <p>[웹접근성] 모바일에도 불편함 없이...</p>-->
-  <!--        </div>-->
-
-
   <aside>
-
     <div class="notice">
       <h3>공지사항</h3>
       <a href="/api/notice/write" id="add-notice" title="공지사항 추가">공지사항 작성</a>
@@ -74,14 +55,6 @@
           <p th:text="${notice.title}"></p>
         </a>
       </div>
-    </div>
-<!--    <div class="notice">-->
-<!--      <a href="#" class="active">공지사항</a>-->
-<!--      <p>[웹접근성] 모바일에도 불편함 없이...</p>-->
-<!--      <p>[가이드라인] 모바일에도 불편함 게시판...</p>-->
-<!--      <p>[웹접근성] 모바일에도 불편함 없이...</p>-->
-<!--      <p>[웹접근성] 모바일에도 불편함 없이...</p>-->
-<!--    </div>-->
   </aside>
 <!--  <section id="recipe-grid">-->
     <div id="recipe_grid" class="section">
@@ -103,13 +76,6 @@
   <a href="/write" id="add-recipe" title="레시피 추가">+</a>
   <a href="/write" id="write-post" title="글쓰기">✏️</a>
 </div>
-<!--<div id="recipe_grid" class="section">-->
-<!--  <div th:each="post : ${posts}" class="post-item">-->
-<!--    <h2 th:text="${post.postDetail.postTitle}"></h2>-->
-<!--    <p th:text="${post.postDetail.foodCategory}"></p>-->
-<!--    <a th:href="@{'/post/' + ${post.postId}}">자세히 보기</a>-->
-<!--  </div>-->
-<!--</div>-->
 <script th:src="@{/js/home.js}"></script>
 </body>
 </html>

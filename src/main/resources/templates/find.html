@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>아이디/비밀번호 찾기 - 요리조리</title>
+    <link rel="stylesheet" th:href="@{../static/css/login.css}">
+</head>
+<body>
+<div class="container">
+    <div class="logo">
+        <img th:src="@{../static/img/mouse.png}" alt="요리조리 로고">
+    </div>
+    <h2>아이디/비밀번호 찾기</h2>
+    <div th:if="${message}" class="message" th:text="${message}"></div>
+    <div th:if="${error}" class="error-message" th:text="${error}"></div>
+    <form id="find-form" th:action="@{/api/auth/find-password}" method="post">
+        <input type="email" name="email" placeholder="이메일 *" required>
+        <button type="submit">FIND YOUR ID/PASSWORD</button>
+    </form>
+    <div class="find-links">
+        <a th:href="@{/templates/login}">로그인 페이지로 돌아가기</a>
+    </div>
+</div>
+</body>
+</html>

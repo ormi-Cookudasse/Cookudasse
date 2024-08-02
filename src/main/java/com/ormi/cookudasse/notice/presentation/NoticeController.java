@@ -30,7 +30,7 @@ public class NoticeController {
 
     private static void checkAdmin(HttpSession session) {
         User user = (User) session.getAttribute("user");
-        if(!user.getRole().equals(Role.ADMIN)) {
+        if(!user.getRole().equals(Role.MANAGER)) {
         throw new RuntimeException("관리자가 아닙니다. 공지사항 작성은 관리자만 가능합니다.");
         }
     }
