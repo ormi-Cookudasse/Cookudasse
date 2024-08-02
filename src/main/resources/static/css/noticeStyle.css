@@ -8,8 +8,9 @@ body {
 .container {
   max-width: 800px;
   margin: 0 auto;
-  background-color: white;
+  background-color: #f0e6e6;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding-bottom: 30px;
 }
 
 header {
@@ -19,6 +20,9 @@ header {
 
 .logo {
   max-width: 150px;
+  align-content: center;
+  text-align: center;
+  margin-left: 160px;
 }
 
 main {
@@ -81,32 +85,44 @@ textarea {
   cursor: pointer;
 }
 
-.post-view h1 {
+.notice-view h2 {
   margin-bottom: 10px;
+  text-align: center;
 }
 
-.post-info {
-  color: #666;
-  margin-bottom: 20px;
+#notice-title, #notice-content {
+  background-color: white;
+  margin: 10px 30px;
+  min-height: 50px;
+  padding: 10px;
+  border-radius: 10px;
 }
 
-.post-content h2 {
+.notice-content h2 {
   margin-top: 20px;
-}
-
-.reaction-buttons {
-  margin-top: 20px;
-}
-
-.reaction-btn {
-  font-size: 24px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  margin-right: 10px;
 }
 
 .action-buttons {
   margin-top: 20px;
   text-align: right;
+}
+
+#edit {
+  text-decoration: none;
+  color: black;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 3px;
+  display: flex;
+  float: left;
+  margin-left: 660px;
+}
+
+#delete {
+  float: right;
+  /*background-color: white;*/
+  /*border: 1px solid black;*/
+  /*border-radius: 5px;*/
+  padding: 3px 5px;
 }

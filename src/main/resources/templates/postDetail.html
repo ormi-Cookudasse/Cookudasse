@@ -7,22 +7,25 @@
 </head>
 <body>
 <div class="container">
-  <div>
-    <img th:src="@{/css/logo.png}" alt="요리조리 로고" class="logo">
+  <a href="/" class="logo">
+    <img th:src="@{/css/logo.png}" alt="Mouse Logo" class="logo">
+  </a>
+
+  <div class="post-info">
+    카테고리: <span id="post-category" th:text="${post.foodCategory}">카테고리</span>
   </div>
 
   <div class="post-view" role="main">
-    <h1 id="post-title" th:text="${post.postTitle}">게시글 제목</h1>
-
-    <div class="post-info">
-      카테고리: <span id="post-category" th:text="${post.foodCategory}">카테고리</span>
+    <h2>제목</h2>
+    <div id="post-title" th:text="${post.postTitle}">
+      제목
     </div>
 
     <div class="post-content">
-      <h2>요리재료:</h2>
-      <p th:text="${post.ingredients}">요리 재료 내용</p>
+      <h2>요리재료</h2>
+      <p th:text="${post.ingredients}" id="post-igd">요리 재료 내용</p>
 
-      <h2>요리 레시피:</h2>
+      <h2>요리 레시피</h2>
       <div id="post-recipe" th:utext="${post.recipe}">
         요리 레시피 내용
       </div>
@@ -38,8 +41,8 @@
       <div class="view-count">
         조회수: <span th:text="${post.postView}">0</span>
       </div>
-      <a th:href="@{/post/{id}/edit(id=${post.postDetailId})}">수정하기</a>
-      <form th:action="@{/post/{id}/delete(id=${post.postDetailId})}" method="post" onsubmit="return confirm('정말로 삭제하시겠습니까?');">
+      <a th:href="@{/post/{id}/edit(id=${post.postDetailId})}" id="edit">수정하기</a>
+      <form th:action="@{/post/{id}/delete(id=${post.postDetailId})}" method="post" onsubmit="return confirm('정말로 삭제하시겠습니까?');" id="delete">
         <button type="submit">삭제하기</button>
       </form>
     </div>

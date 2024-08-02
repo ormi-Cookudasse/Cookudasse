@@ -7,22 +7,27 @@
 </head>
 <body>
 <div class="container">
-    <div>
-        <img th:src="@{/css/logo.png}" alt="요리조리 로고" class="logo">
-    </div>
+    <a href="/" class="logo">
+        <img th:src="@{/css/logo.png}" alt="Mouse Logo" class="logo">
+    </a>
+    <!--    <div>-->
+    <!--        <img th:src="@{/css/logo.png}" alt="요리조리 로고" class="logo">-->
+    <!--    </div>-->
 
     <div class="notice-view" role="main">
-        <h1 id="notice-title" th:text="${notice.title}">제목</h1>
-
-        <h2>내용:</h2>
+        <h2>제목</h2>
+        <div id="notice-title" th:text="${notice.title}">
+            제목
+        </div>
+        <h2>내용</h2>
         <div id="notice-content" th:utext="${notice.content}">
             내용
         </div>
 
         <div class="action-buttons">
-            <a th:href="@{/api/notice/{id}/edit(id=${notice.id})}">수정하기</a>
+            <a th:href="@{/api/notice/{id}/edit(id=${notice.id})}" id="edit">수정하기</a>
             <form th:action="@{/api/notice/{id}/delete(id=${notice.id})}" method="post"
-                  onsubmit="return confirm('정말로 삭제하시겠습니까?');">
+                  onsubmit="return confirm('정말로 삭제하시겠습니까?');" id="delete">
                 <button type="submit">삭제하기</button>
             </form>
         </div>
