@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   var scrollToTopBtn = document.getElementById("scroll-to-top");
   var addRecipeBtn = document.getElementById("add-recipe");
+  var addNoticeBtn = document.getElementById("add-notice");
 
   window.onscroll = function () {
     if (
@@ -20,5 +21,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   addRecipeBtn.onclick = function (e) {
     window.location.href = "/write";
+  };
+
+  addNoticeBtn.onclick = function (e) {
+    window.location.href = "/writeNotice";
   };
 });
