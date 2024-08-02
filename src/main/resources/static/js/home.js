@@ -1,6 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
   var scrollToTopBtn = document.getElementById("scroll-to-top");
   var addRecipeBtn = document.getElementById("add-recipe");
+  var setAdminBtn = document.getElementById("set-admin");
+
 
   window.onscroll = function () {
     if (
@@ -20,5 +22,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   addRecipeBtn.onclick = function (e) {
     window.location.href = "/write";
+  };
+
+  setAdminBtn.onclick = function (e) {
+    window.location.href = "/admin";
   };
 });

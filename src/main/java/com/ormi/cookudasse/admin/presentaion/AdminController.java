@@ -1,6 +1,7 @@
 package com.ormi.cookudasse.admin.presentaion;
 
 
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import com.ormi.cookudasse.admin.dto.AdminRequest;
 import com.ormi.cookudasse.admin.application.AdminService;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping(path = "/api/admin")
 @RequiredArgsConstructor
 public class AdminController {
@@ -26,14 +27,8 @@ public class AdminController {
 //        if (Role.MANAGER.equals(user.getRole())) {
 //            return ResponseEntity.ok(response);
 //        } else return ResponseEntity.notFound().build();
-//    }
 
-    @GetMapping
-    public String admin(Model model) {
-        List<User> users = userRepository.findAll();
-        model.addAttribute("users", users);
-        return "admin";
-    }
+//    }
 
     // <관리자 페이지> 버튼 눌렀을 때 나오는 페이지 admin.html : 우선 사용자 목록 보여주기 -> 이름, email, ROLE 형식 목록, 이후 ROLE 은 select 창으로 변경
     @GetMapping("/users")

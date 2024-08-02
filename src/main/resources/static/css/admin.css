@@ -16,9 +16,9 @@ a {
     color: inherit;
 }
 
-.logo-img {
-    width: 200px;
-    height: 100px;
+.logo img{
+    height: 58px;
+    vertical-align: top;
 }
 
 .page-name {
@@ -65,12 +65,32 @@ th {
     border: 1px solid;
 }
 
+th:nth-child(1) {
+    width: 11vw;
+}
+
+th:nth-child(2) {
+    width: 9vw;
+}
+
+th:nth-child(4) {
+    width: 110px;
+}
+
+th:nth-child(5) {
+    width: 110px;
+}
+
 td {
     border: 1px solid;
 }
 
 td:nth-child(1) {
-    width: 200px;
+    width: 11vw;
+}
+
+td:nth-child(2) {
+    width: 9vw;
 }
 
 td:nth-child(4) {
@@ -94,13 +114,16 @@ select {
     background-color: white;
     float: right;
 }
-.content-admin{
+
+.content-admin {
 }
-.button-save{
+
+.button-save {
     color: white;
-    background-color:#4338CA;
+    background-color: #4338CA;
 }
-.button-search{
+
+.button-search {
     color: white;
-    background-color:#4338CA;
+    background-color: #4338CA;
 }
