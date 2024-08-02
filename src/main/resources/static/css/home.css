@@ -5,6 +5,10 @@ body {
   background-color: #f9f5f3;
 }
 
+a {
+  text-decoration: none;
+}
+
 header {
   display: flex;
   justify-content: space-between;
@@ -107,13 +111,13 @@ aside {
   flex-grow: 1;
 }
 
-.recipe-item {
+.post-item {
   background-color: white;
   padding: 10px;
   text-align: center;
 }
 
-.recipe-item img {
+.post-item img {
   width: 100%;
   height: auto;
 }
