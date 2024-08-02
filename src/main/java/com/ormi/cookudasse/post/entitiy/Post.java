@@ -1,5 +1,6 @@
 package com.ormi.cookudasse.post.entitiy;
 
+import com.ormi.cookudasse.auth.domain.User;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,7 +17,8 @@ public class Post{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "post_id")
     private Long postId;
-
+    @Column(nullable = false)
+    private int postView = 0;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;

@@ -29,11 +29,15 @@
     </div>
 
     <div class="reaction-buttons">
-      <button>👍 <span th:text="${post.postLike}">0</span></button>
+      <button id="likeButton" th:data-post-id="${post.postDetailId}" onclick="likePost(this)">
+        👍 <span id="likeCount" th:text="${post.postLike}">0</span>
+      </button>
     </div>
 
     <div class="action-buttons">
-      <span>조회수: <span th:text="${post.postView}">0</span></span>
+      <div class="view-count">
+        조회수: <span th:text="${post.postView}">0</span>
+      </div>
       <a th:href="@{/post/{id}/edit(id=${post.postDetailId})}">수정하기</a>
       <form th:action="@{/post/{id}/delete(id=${post.postDetailId})}" method="post" onsubmit="return confirm('정말로 삭제하시겠습니까?');">
         <button type="submit">삭제하기</button>
@@ -42,5 +46,16 @@
   </div>
 </div>
 <script th:src="@{/js/script.js}"></script>
+<script>
+  function likePost(button) {
+    var postId = button.getAttribute('data-post-id');
+    fetch('/post/' + postId + '/like', { method: 'POST' })
+            .then(response => response.json())
+            .then(data => {
+              document.getElementById('likeCount').textContent = data.likeCount;
+            })
+            .catch(error => console.error('Error:', error));
+  }
+</script>
 </body>
 </html>

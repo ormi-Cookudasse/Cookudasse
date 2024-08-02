@@ -1,15 +1,16 @@
 package com.ormi.cookudasse.post.service;
 
 
+import com.ormi.cookudasse.auth.domain.User;
 import com.ormi.cookudasse.post.dto.request.PostRequest;
 import com.ormi.cookudasse.post.dto.response.PostSaveResponse;
 import com.ormi.cookudasse.post.entitiy.Post;
 import com.ormi.cookudasse.post.entitiy.PostDetail;
-import com.ormi.cookudasse.post.entitiy.User;
 import com.ormi.cookudasse.post.repository.PostDetailRepository;
 import com.ormi.cookudasse.post.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -20,7 +21,8 @@ public class PostService {
     private final PostRepository postRepository;
     private final PostDetailRepository postDetailRepository;
 
-    public PostSaveResponse createPost(PostRequest postRequest, User user, MultipartFile file) {
+
+    public void createPost(PostRequest postRequest, User user, MultipartFile file) {
 //        User findUser = userRepository.findById(user.getUserId~); // TODO 추후 로그인 방식 정해지면 수정 필요(entity X dto 생성하거나 user의 id 만 받아온 뒤, 해당 UserRepository 에서 조회해서 가져온 user를 저장!
 
         PostDetail postDetail = PostDetail.builder()
@@ -43,11 +45,8 @@ public class PostService {
             String fileUrl = saveFileAndGetUrl(file);
             post.setImageUrl(fileUrl);
         }
-
-        Post savedPost = postRepository.save(post);
-
-        return new PostSaveResponse(savedPost.getId());
-
+      
+        postRepository.save(post);
     }
     private String saveFileAndGetUrl(MultipartFile file) {
         // 실제 파일 저장 로직 구현
@@ -56,7 +55,22 @@ public class PostService {
         return "file_url_placeholder";
     }
 
-
+    @Transactional
+    public int incrementLike(Long postId) {
+        Post post = getPostById(postId);
+        PostDetail postDetail = post.getPostDetail();
+        postDetail.setPostLike(postDetail.getPostLike() + 1);
+        postDetailRepository.save(postDetail);
+        return postDetail.getPostLike();
+    }
+    @Transactional
+    public int incrementView(Long postId) {
+        Post post = getPostById(postId);
+        PostDetail postDetail = post.getPostDetail();
+        postDetail.setPostView(postDetail.getPostView() + 1);
+        postDetailRepository.save(postDetail);
+        return postDetail.getPostView();
+    }
 
     public List<Post> getAllPosts() {
         return postRepository.findAllByOrderByCreatedAtDesc();
@@ -66,23 +80,20 @@ public class PostService {
         return postRepository.findById(id).orElseThrow(() -> new RuntimeException("Post not found"));
     }
 
-    public Post updatePost(Long id, PostDetail updatedPostDetail) {
+    public void updatePost(Long id, PostRequest request) {
         Post post = getPostById(id);
-        PostDetail postDetail = post.getPostDetail();
-        postDetail.setPostTitle(updatedPostDetail.getPostTitle());
-        postDetail.setFoodCategory(updatedPostDetail.getFoodCategory());
-        postDetail.setIngredients(updatedPostDetail.getIngredients());
-        postDetail.setRecipe(updatedPostDetail.getRecipe());
-        postDetailRepository.save(postDetail);
-        return postRepository.save(post);
+        PostDetail updatedPostDetail = post.getPostDetail();
+        updatedPostDetail.setPostTitle(request.getPostTitle());
+        updatedPostDetail.setFoodCategory(request.getFoodCategory());
+        updatedPostDetail.setIngredients(request.getIngredients());
+        updatedPostDetail.setRecipe(request.getRecipe());
+        postDetailRepository.save(updatedPostDetail);
+        post.setPostDetail(updatedPostDetail);
     }
 
     public void deletePost(Long id) {
         postRepository.deleteById(id);
     }
 
-    public void updatePost(Long id, PostRequest postRequest, User user, MultipartFile file) {
 
-
-    }
 }
