@@ -16,32 +16,36 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping("/api/auth")
+@RequestMapping(path = "/api/auth")
 public class AuthController {
 
     @Autowired
     private UserService userService;
 
     @GetMapping("/login")
-    public String showLoginForm(Model model) {
-        model.addAttribute("user", new User());
+    public String showLoginForm() {
         return "login";
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody LoginRequest loginRequest, HttpSession session, RedirectAttributes redirectAttributes) {
+    public String login(@ModelAttribute LoginRequest loginRequest, HttpSession session, RedirectAttributes redirectAttributes) {
         User findUser = userService.authenticate(loginRequest.getEmail(), loginRequest.getPassword());
         if (findUser != null) {
             session.setAttribute("user", findUser);
-            return "redirect:/home";    // 다시 home.html 로
+            return "redirect:/";    // 다시 home.html 로
         } else {
             redirectAttributes.addFlashAttribute("errorMessage", "Invalid email or password");
             return "redirect:/login";   // 이후 login.html 에서
         }
     }
 
+//    @GetMapping("/signup")
+//    public String showSignupForm() {
+//        return "signup";
+//    }
+
     @PostMapping("/signup")
-    public String signup(@RequestBody SignupRequest signupRequest, Model model) {
+    public String signup(@ModelAttribute SignupRequest signupRequest, Model model) {
         try {
             User user = userService.registerUser(signupRequest);
             model.addAttribute("message", "User registered successfully");
@@ -72,7 +76,7 @@ public class AuthController {
     }
 
     @PostMapping("/find-password")
-    public String findPassword(@RequestBody FindPasswordRequest request, Model model) {
+    public String findPassword(@ModelAttribute FindPasswordRequest request, Model model) {
         try {
             userService.initiatePasswordReset(request.getEmail());
             model.addAttribute("message", "Password reset initiated. Check your email.");
