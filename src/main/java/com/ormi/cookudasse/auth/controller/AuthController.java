@@ -1,36 +1,111 @@
-package com.ormi.cookudasse.controller;
+package com.ormi.cookudasse.auth.controller;
 
-import com.ormi.cookudasse.dto.FindPasswordRequestDto;
-import com.ormi.cookudasse.dto.LoginRequestDto;
-import com.ormi.cookudasse.dto.SignupRequestDto;
-import com.ormi.cookudasse.service.UserService;
+import com.ormi.cookudasse.auth.domain.User;
+import com.ormi.cookudasse.auth.dto.FindPasswordRequest;
+import com.ormi.cookudasse.auth.dto.LoginRequest;
+import com.ormi.cookudasse.auth.dto.SignupRequest;
+import com.ormi.cookudasse.auth.service.UserService;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+
+import jakarta.servlet.http.HttpSession;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+@Controller
 @RequestMapping("/api/auth")
 public class AuthController {
+
     @Autowired
     private UserService userService;
 
+    @GetMapping("/login")
+    public String showLoginForm(Model model) {
+        model.addAttribute("user", new User());
+        return "login";
+    }
+
     @PostMapping("/login")
-    public ResponseEntity<LoginRequestDto> login(@RequestBody LoginRequestDto loginRequest) {
-        // 로그인 로직 구현
+    public String login(@RequestBody LoginRequest loginRequest, HttpSession session, RedirectAttributes redirectAttributes) {
+        User findUser = userService.authenticate(loginRequest.getEmail(), loginRequest.getPassword());
+        if (findUser != null) {
+            session.setAttribute("user", findUser);
+            return "redirect:/home";    // 다시 home.html 로
+        } else {
+            redirectAttributes.addFlashAttribute("errorMessage", "Invalid email or password");
+            return "redirect:/login";   // 이후 login.html 에서
+        }
+
+//        try {
+//            if (userService.authenticate(loginRequest.getEmail(), loginRequest.getPassword())) {
+//                session.setAttribute("email", loginRequest.getEmail());
+//                model.addAttribute("message", "Login successful");
+//                return "loginSuccess";
+//            } else {
+//                model.addAttribute("error", "Invalid credentials");
+//                return "loginError";
+//            }
+//        } catch (RuntimeException e) {
+//            model.addAttribute("error", e.getMessage());
+//            return "loginError";
+//        }
+
+        // 교안에서 나온 것
+        /*try {
+            Authentication authentication =
+                    authenticationManager.authenticate(
+                            new UsernamePasswordAuthenticationToken(
+                                    loginRequest.getUsername(), loginRequest.getPassword()));
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            return ResponseEntity.ok("로그인 성공");
+        } catch (BadCredentialsException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인 실패: 잘못된 인증 정보");
+        }*/
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<SignupRequestDto> signup(@RequestBody SignupRequestDto signupRequest) {
-        // 회원가입 로직 구현
+    public String signup(@RequestBody SignupRequest signupRequest, Model model) {
+        try {
+            User user = userService.registerUser(signupRequest);
+            model.addAttribute("message", "User registered successfully");
+            return "signupSuccess";
+        } catch (RuntimeException e) {
+            model.addAttribute("error", e.getMessage());
+            return "signupError";
+        }
+    }
+
+    @PostMapping("/logout")
+    public String logout(HttpSession session, Model model) {
+        session.invalidate();
+        model.addAttribute("message", "Logged out successfully");
+        return "logoutSuccess";
     }
 
     @GetMapping("/find-id")
-    public ResponseEntity<String> findId(@RequestParam String email) {
-        // 아이디 찾기 로직 구현
+    public String findId(@RequestParam String email, Model model) {
+        try {
+            String username = userService.findUsernameByEmail(email);
+            model.addAttribute("username", username);
+            return "foundUsername";
+        } catch (RuntimeException e) {
+            model.addAttribute("error", "User not found");
+            return "findIdError";
+        }
     }
 
     @PostMapping("/find-password")
-    public ResponseEntity<FindPasswordRequestDto> findPassword(@RequestBody FindPasswordRequestDto request) {
-        // 비밀번호 찾기 로직 구현
+    public String findPassword(@RequestBody FindPasswordRequest request, Model model) {
+        try {
+            userService.initiatePasswordReset(request.getEmail());
+            model.addAttribute("message", "Password reset initiated. Check your email.");
+            return "passwordResetInitiated";
+        } catch (RuntimeException e) {
+            model.addAttribute("error", e.getMessage());
+            return "passwordResetError";
+        }
     }
 }
