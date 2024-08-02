@@ -15,7 +15,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -58,6 +60,14 @@ public class PostController {
     public String updatePost(@PathVariable Long id, @ModelAttribute PostDetail updatedPostDetail) {
         postService.updatePost(id, updatedPostDetail);
         return "redirect:/post/" + id;
+    }
+    @PostMapping("/post/{id}/like")
+    @ResponseBody
+    public ResponseEntity<Map<String, Integer>> likePost(@PathVariable Long id) {
+        int newLikeCount = postService.incrementLike(id);
+        Map<String, Integer> response = new HashMap<>();
+        response.put("likeCount", newLikeCount);
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/post/{id}/delete")

@@ -10,6 +10,7 @@ import com.ormi.cookudasse.post.repository.PostDetailRepository;
 import com.ormi.cookudasse.post.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -55,7 +56,14 @@ public class PostService {
         return "file_url_placeholder";
     }
 
-
+    @Transactional
+    public int incrementLike(Long postId) {
+        Post post = getPostById(postId);
+        PostDetail postDetail = post.getPostDetail();
+        postDetail.setPostLike(postDetail.getPostLike() + 1);
+        postDetailRepository.save(postDetail);
+        return postDetail.getPostLike();
+    }
 
     public List<Post> getAllPosts() {
         return postRepository.findAllByOrderByCreatedAtDesc();
@@ -73,6 +81,7 @@ public class PostService {
         postDetail.setIngredients(updatedPostDetail.getIngredients());
         postDetail.setRecipe(updatedPostDetail.getRecipe());
         postDetailRepository.save(postDetail);
+        post.setPostDetail(postDetail);
         return postRepository.save(post);
     }
 
@@ -80,8 +89,5 @@ public class PostService {
         postRepository.deleteById(id);
     }
 
-    public void updatePost(Long id, PostRequest postRequest, User user, MultipartFile file) {
 
-
-    }
 }

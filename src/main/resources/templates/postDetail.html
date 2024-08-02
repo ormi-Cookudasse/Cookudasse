@@ -29,7 +29,9 @@
     </div>
 
     <div class="reaction-buttons">
-      <button>👍 <span th:text="${post.postLike}">0</span></button>
+      <button id="likeButton" th:data-post-id="${post.postDetailId}" onclick="likePost(this)">
+        👍 <span id="likeCount" th:text="${post.postLike}">0</span>
+      </button>
     </div>
 
     <div class="action-buttons">
@@ -42,5 +44,16 @@
   </div>
 </div>
 <script th:src="@{/js/script.js}"></script>
+<script>
+  function likePost(button) {
+    var postId = button.getAttribute('data-post-id');
+    fetch('/post/' + postId + '/like', { method: 'POST' })
+            .then(response => response.json())
+            .then(data => {
+              document.getElementById('likeCount').textContent = data.likeCount;
+            })
+            .catch(error => console.error('Error:', error));
+  }
+</script>
 </body>
 </html>
