@@ -15,19 +15,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
 public class PostController {
     private final PostService postService;
 
-//    @GetMapping("/")
-//    public String home(Model model) {
-//        List<Post> posts = postService.getAllPosts();
-//        model.addAttribute("posts", posts);
-//        return "home";
-//    }
 
     @GetMapping("/write")
     public String showWriteForm(Model model) {
@@ -35,21 +31,21 @@ public class PostController {
         model.addAttribute("foodCategories", FoodCategory.values());
         return "writePost";
     }
-
     @PostMapping(value = "/write", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public String createPost(@ModelAttribute PostRequest postRequest,
-                                                       @RequestPart(value = "file", required = false) MultipartFile file) {
+
+                             @RequestPart(value = "file", required = false) MultipartFile file) {
         User user = new User(); // 임시 사용자 생성
         user.setId(1L);
-//        PostSaveResponse response = postService.createPost(postRequest, user, file);
-//        return ResponseEntity.ok(response);
         postService.createPost(postRequest, user, file);
         return "redirect:/";
     }
 
+
     @GetMapping("/post/{id}")
     public String showPost(@PathVariable(name = "id") Long id, Model model) {
         Post post = postService.getPostById(id);
+        postService.incrementView(id);  // 조회수 증가
         model.addAttribute("post", post.getPostDetail());
         return "postDetail";
     }
@@ -68,6 +64,14 @@ public class PostController {
     public String updatePost(@PathVariable(name = "id") Long id, @ModelAttribute PostRequest postRequest) {
         postService.updatePost(id, postRequest);
         return "redirect:/post/" + id;
+    }
+    @PostMapping("/post/{id}/like")
+    @ResponseBody
+    public ResponseEntity<Map<String, Integer>> likePost(@PathVariable Long id) {
+        int newLikeCount = postService.incrementLike(id);
+        Map<String, Integer> response = new HashMap<>();
+        response.put("likeCount", newLikeCount);
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/post/{id}/delete")

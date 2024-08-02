@@ -18,6 +18,8 @@ public class PostDetail {
     private Long postDetailId;
 
     private String postTitle;
+    @Column(nullable = false)
+    private int postView = 0;
 
     @Enumerated(EnumType.STRING)
     private FoodCategory foodCategory;
@@ -29,5 +31,6 @@ public class PostDetail {
     private String recipe;
 
     private int postLike;
-    private int postView;
+
+
 }
