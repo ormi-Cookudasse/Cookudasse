@@ -1,5 +1,6 @@
 package com.ormi.cookudasse.post.entitiy;
 
+import com.ormi.cookudasse.auth.domain.User;
 import jakarta.persistence.*;
 import lombok.*;
 

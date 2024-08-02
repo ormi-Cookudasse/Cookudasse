@@ -1,11 +1,11 @@
 package com.ormi.cookudasse.post.controller;
 
+import com.ormi.cookudasse.auth.domain.User;
 import com.ormi.cookudasse.post.dto.request.PostRequest;
 import com.ormi.cookudasse.post.dto.response.PostSaveResponse;
 import com.ormi.cookudasse.post.entitiy.FoodCategory;
 import com.ormi.cookudasse.post.entitiy.Post;
 import com.ormi.cookudasse.post.entitiy.PostDetail;
-import com.ormi.cookudasse.post.entitiy.User;
 import com.ormi.cookudasse.post.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -22,12 +22,12 @@ import java.util.List;
 public class PostController {
     private final PostService postService;
 
-    @GetMapping("/")
-    public String home(Model model) {
-        List<Post> posts = postService.getAllPosts();
-        model.addAttribute("posts", posts);
-        return "home";
-    }
+//    @GetMapping("/")
+//    public String home(Model model) {
+//        List<Post> posts = postService.getAllPosts();
+//        model.addAttribute("posts", posts);
+//        return "home";
+//    }
 
     @GetMapping("/write")
     public String showWriteForm(Model model) {

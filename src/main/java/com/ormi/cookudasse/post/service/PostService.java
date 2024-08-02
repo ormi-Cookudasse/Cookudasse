@@ -1,11 +1,11 @@
 package com.ormi.cookudasse.post.service;
 
 
+import com.ormi.cookudasse.auth.domain.User;
 import com.ormi.cookudasse.post.dto.request.PostRequest;
 import com.ormi.cookudasse.post.dto.response.PostSaveResponse;
 import com.ormi.cookudasse.post.entitiy.Post;
 import com.ormi.cookudasse.post.entitiy.PostDetail;
-import com.ormi.cookudasse.post.entitiy.User;
 import com.ormi.cookudasse.post.repository.PostDetailRepository;
 import com.ormi.cookudasse.post.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
