@@ -23,5 +23,4 @@ public class User {
     @Setter
     @Enumerated
     private Role role;
-
 }
