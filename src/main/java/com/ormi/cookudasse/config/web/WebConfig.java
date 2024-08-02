@@ -12,12 +12,12 @@ public class WebConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new AuthInterceptor())
                 .addPathPatterns("/**")
-                .excludePathPatterns("/", "/home", "/api/auth/login", "/login", "/logout", "/css/**", "/js/**");
+                .excludePathPatterns("/", "/home", "/api/auth/login", "/api/auth/signup", "/login", "/logout", "/css/**", "/js/**");
     }
 
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/css/**", "/js/**", "/img/**")
-                .addResourceLocations("classpath:/static/css/", "classpath:/static/js/", "classpath:/static/img/");
-    }
+//    @Override
+//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+//        registry.addResourceHandler("/img/**")
+//                .addResourceLocations("classpath:/static/img/");
+//    }
 }
