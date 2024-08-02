@@ -37,37 +37,41 @@ public class PostController {
     }
 
     @PostMapping(value = "/write", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<PostSaveResponse> createPost(@ModelAttribute PostRequest postRequest,
+    public String createPost(@ModelAttribute PostRequest postRequest,
                                                        @RequestPart(value = "file", required = false) MultipartFile file) {
         User user = new User(); // 임시 사용자 생성
         user.setId(1L);
-        PostSaveResponse response = postService.createPost(postRequest, user, file);
-        return ResponseEntity.ok(response);
+//        PostSaveResponse response = postService.createPost(postRequest, user, file);
+//        return ResponseEntity.ok(response);
+        postService.createPost(postRequest, user, file);
+        return "redirect:/";
     }
 
     @GetMapping("/post/{id}")
-    public String showPost(@PathVariable Long id, Model model) {
+    public String showPost(@PathVariable(name = "id") Long id, Model model) {
         Post post = postService.getPostById(id);
         model.addAttribute("post", post.getPostDetail());
         return "postDetail";
     }
 
     @GetMapping("/post/{id}/edit")
-    public String showEditForm(@PathVariable Long id, Model model) {
+    public String showEditForm(@PathVariable(name = "id") Long id, Model model) {
         Post post = postService.getPostById(id);
         model.addAttribute("post", post);
         model.addAttribute("foodCategories", FoodCategory.values());
         return "editPost";
     }
 
+    // 우선 pathvariabe 적용
+    // requestDto 로 적용
     @PostMapping("/post/{id}/edit")
-    public String updatePost(@PathVariable Long id, @ModelAttribute PostDetail updatedPostDetail) {
-        postService.updatePost(id, updatedPostDetail);
+    public String updatePost(@PathVariable(name = "id") Long id, @ModelAttribute PostRequest postRequest) {
+        postService.updatePost(id, postRequest);
         return "redirect:/post/" + id;
     }
 
     @PostMapping("/post/{id}/delete")
-    public String deletePost(@PathVariable Long id) {
+    public String deletePost(@PathVariable(name = "id") Long id) {
         postService.deletePost(id);
         return "redirect:/";
 
