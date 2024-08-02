@@ -6,6 +6,7 @@ import com.ormi.cookudasse.post.dto.response.PostSaveResponse;
 import com.ormi.cookudasse.post.entitiy.FoodCategory;
 import com.ormi.cookudasse.post.entitiy.Post;
 import com.ormi.cookudasse.post.entitiy.PostDetail;
+import com.ormi.cookudasse.post.service.CommentService;
 import com.ormi.cookudasse.post.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -23,7 +24,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class PostController {
     private final PostService postService;
-
+    private final CommentService commentService;
 
     @GetMapping("/write")
     public String showWriteForm(Model model) {
@@ -47,7 +48,14 @@ public class PostController {
         Post post = postService.getPostById(id);
         postService.incrementView(id);  // 조회수 증가
         model.addAttribute("post", post.getPostDetail());
+        model.addAttribute("comments", commentService.getCommentsByPost(post));
         return "postDetail";
+    }
+    @PostMapping("/post/{id}/comment")
+    public String addComment(@PathVariable Long id, @RequestParam String content) {
+        Post post = postService.getPostById(id);
+        commentService.saveComment(post, content, "Anonymous"); // 임시로 작성자를 "Anonymous"로 설정
+        return "redirect:/post/" + id;
     }
 
     @GetMapping("/post/{id}/edit")
