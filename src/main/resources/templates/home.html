@@ -106,7 +106,7 @@
                 .then(response => response.text())
                 .then(data => {
                     alert(data);
-                    if (data === '계정이 삭제되었습니다.') {
+                    if (data === '계정이 정상적으로 탈퇴 되었습니다.') {
                         window.location.href = '/api/auth/login';
                     }
                 })
