@@ -32,7 +32,8 @@
             <a href="/api/auth/login">LOGIN</a>
         </th:block>
         <th:block th:if="${session.user != null}">
-            <a href="/api/admin/users">My Page</a>d
+            <a href="/api/auth/">회원 탈퇴</a>
+            <a href="/api/admin/">회원 권한 조정</a>
         </th:block>
     </nav>
 
