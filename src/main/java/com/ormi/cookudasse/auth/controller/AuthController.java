@@ -8,6 +8,7 @@ import com.ormi.cookudasse.auth.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -96,22 +97,39 @@ public class AuthController {
         }
     }
 
-    @PostMapping("/delete")
-    public String deleteUser(HttpSession session, RedirectAttributes redirectAttributes) {
+//    @PostMapping("/delete")
+//    public String deleteUser(HttpSession session, RedirectAttributes redirectAttributes) {
+//        User user = (User) session.getAttribute("user");
+//        if (user != null) {
+//            try {
+//                userService.deleteUser(user.getEmail());
+//                session.invalidate(); // 세션 무효화
+//                redirectAttributes.addFlashAttribute("message", "Your account has been successfully deleted.");
+//                return "redirect:/api/auth/login";
+//            } catch (RuntimeException e) {
+//                redirectAttributes.addFlashAttribute("error", "Failed to delete account: " + e.getMessage());
+//                return "redirect:/home";
+//            }
+//        } else {
+//            redirectAttributes.addFlashAttribute("error", "You must be logged in to delete your account.");
+//            return "redirect:/api/auth/login";
+//        }
+//    }
+
+    @DeleteMapping("/delete")
+    @ResponseBody
+    public ResponseEntity<?> deleteUser(HttpSession session) {
         User user = (User) session.getAttribute("user");
         if (user != null) {
             try {
                 userService.deleteUser(user.getEmail());
                 session.invalidate(); // 세션 무효화
-                redirectAttributes.addFlashAttribute("message", "Your account has been successfully deleted.");
-                return "redirect:/api/auth/login";
+                return ResponseEntity.ok().body("Account successfully deleted");
             } catch (RuntimeException e) {
-                redirectAttributes.addFlashAttribute("error", "Failed to delete account: " + e.getMessage());
-                return "redirect:/home";
+                return ResponseEntity.badRequest().body("Failed to delete account: " + e.getMessage());
             }
         } else {
-            redirectAttributes.addFlashAttribute("error", "You must be logged in to delete your account.");
-            return "redirect:/api/auth/login";
+            return ResponseEntity.badRequest().body("You must be logged in to delete your account.");
         }
     }
 }

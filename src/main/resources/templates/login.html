@@ -8,8 +8,13 @@
 </head>
 <body>
 <div class="container">
+
+
+
     <div class="logo">
-        <img th:src="@{/css/logo.png}" alt="요리조리 로고">
+        <a th:href="@{/}">
+            <img th:src="@{/css/logo.png}" alt="Mouse Logo">
+        </a>
     </div>
 
     <div th:if="${errorMessage}" class="error-message" th:text="${errorMessage}"></div>

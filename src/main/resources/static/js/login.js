@@ -55,3 +55,4 @@ document.addEventListener('DOMContentLoaded', function() {
     // 페이지 로드 시 기본적으로 signin 폼을 보이게 설정
     showForm('signin');
 });
+
