@@ -124,7 +124,7 @@ public class AuthController {
             try {
                 userService.deleteUser(user.getEmail());
                 session.invalidate(); // 세션 무효화
-                return ResponseEntity.ok().body("Account successfully deleted");
+                return ResponseEntity.ok().body("계정이 정상적으로 탈퇴 되었습니다.");
             } catch (RuntimeException e) {
                 return ResponseEntity.badRequest().body("Failed to delete account: " + e.getMessage());
             }
