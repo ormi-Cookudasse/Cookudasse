@@ -27,15 +27,12 @@
         </button>
     </div>
 
-    <!--    <nav>-->
-    <!--        <a href="/api/auth/login">LOGIN</a>-->
-    <!--    </nav>-->
     <nav>
         <th:block th:if="${session.user == null}">
             <a href="/api/auth/login">LOGIN</a>
         </th:block>
         <th:block th:if="${session.user != null}">
-            <a href="/api/admin/users">My Page</a>
+            <a href="/api/admin/users">My Page</a>d
         </th:block>
     </nav>
 

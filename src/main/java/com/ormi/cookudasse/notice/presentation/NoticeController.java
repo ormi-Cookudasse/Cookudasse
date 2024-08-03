@@ -72,11 +72,6 @@ public class NoticeController {
     }
   }
 
-//  @ExceptionHandler(RuntimeException.class)
-//  public String handleRuntimeException(RuntimeException ex, Model model, HttpServletRequest request) {
-//    model.addAttribute("errorMessage", ex.getMessage());
-//    return "redirect:" + request.getHeader("Referer");
-//  }
   @ExceptionHandler(RuntimeException.class)
   public String handleRuntimeException(RuntimeException ex, RedirectAttributes redirectAttributes, HttpServletRequest request) {
     redirectAttributes.addFlashAttribute("errorMessage", ex.getMessage());

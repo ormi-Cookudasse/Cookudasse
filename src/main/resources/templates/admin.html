@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>관리자 페이지</title>
-<!--    <link rel="stylesheet" th:href="../static/css/admin.css">-->
+    <!--    <link rel="stylesheet" th:href="../static/css/admin.css">-->
     <link rel="stylesheet" th:href="@{/css/admin.css}">
 </head>
 <body>
@@ -40,11 +40,17 @@
                     <td th:text="${user.email}">이메일</td>
                     <td th:text="${user.role}">권한</td>
                     <td>
-                        <select id="select-authorize" th:field="*{role}">
-                            <option value="">권한수정</option>
-                            <option th:each="role:${role}"
+                        <!--                        <select id="select-authorize" th:field="*{role}">-->
+                        <!--                            <option value="">권한수정</option>-->
+                        <!--                            <option th:each="roleE:${role}"-->
+                        <!--                                    th:value="${role}"-->
+                        <!--                                    th:text="${role.getDescription()}"></option>-->
+                        <!--                        </select>-->
+                        <select th:field="*{role}">
+                            <option th:each="role : ${T(com.ormi.cookudasse.auth.domain.Role).values()}"
                                     th:value="${role}"
-                                    th:text="${role.getDescription()}"></option>
+                                    th:text="${role.description}">
+                            </option>
                         </select>
                     </td>
                 </tr>
