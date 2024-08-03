@@ -8,11 +8,20 @@
 </head>
 <body>
 <div class="container">
+
+
+
     <div class="logo">
-        <img th:src="@{/css/logo.png}" alt="요리조리 로고">
+        <a th:href="@{/}">
+            <img th:src="@{/css/logo.png}" alt="Mouse Logo">
+        </a>
     </div>
+
+    <div th:if="${errorMessage}" class="error-message" th:text="${errorMessage}"></div>
+    <div th:if="${successMessage}" class="success-message" th:text="${successMessage}"></div>
+
     <div class="tabs">
-        <div class="tab active" data-form="signin">Sign In</div>
+        <div class="tab" data-form="signin">Sign In</div>
         <div class="tab" data-form="signup">Sign Up</div>
     </div>
 
@@ -27,7 +36,7 @@
         </label>
         <button type="submit">SIGN IN</button>
         <div class="find-links">
-            <a th:href="@{/find}">FIND YOUR ID/PASSWORD</a>
+            <a th:href="@{/api/auth/find-password}">FIND YOUR ID/PASSWORD</a>
         </div>
     </form>
     <form id="signup-form" th:action="@{/api/auth/signup}" th:object="${signupRequest}" method="post">
