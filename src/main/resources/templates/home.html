@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Mouse 요리 블로그</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/home.css}"/>
-<!--    <link rel="stylesheet" href="../static/css/home.css"/>-->
+    <!--    <link rel="stylesheet" href="../static/css/home.css"/>-->
 </head>
 <body>
 <header>
@@ -27,15 +27,13 @@
         </button>
     </div>
 
-<!--    <nav>-->
-<!--        <a href="/api/auth/login">LOGIN</a>-->
-<!--    </nav>-->
     <nav>
         <th:block th:if="${session.user == null}">
             <a href="/api/auth/login">LOGIN</a>
         </th:block>
         <th:block th:if="${session.user != null}">
-            <a href="/api/admin/users">My Page</a>
+            <a href="/api/auth/">회원 탈퇴</a>
+            <a href="/api/admin/">회원 권한 조정</a>
         </th:block>
     </nav>
 
@@ -71,7 +69,7 @@
             <a th:href="@{'/post/' + ${post.postId}}">
                 <div class="post-item-each">
                     <h2 th:text="${post.postDetail.postTitle}"></h2>
-<!--                    <img src="" alt="food img">-->
+                    <!--                    <img src="" alt="food img">-->
                     <p th:text="${post.postDetail.foodCategory}"></p>
                 </div>
             </a>
@@ -85,6 +83,14 @@
     <a href="/write" id="add-recipe" title="레시피 추가">+</a>
     <a href="/write" id="write-post" title="글쓰기">✏️</a>
 </div>
+<script th:inline="javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        var errorMessage = /*[[${errorMessage}]]*/ null;
+        if (errorMessage) {
+            alert(errorMessage);
+        }
+    });
+</script>
 <script th:src="@{/js/home.js}"></script>
 </body>
 </html>

@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +30,7 @@ public class HomeController {
   //        return "home";
   //    }
   @GetMapping("/")
-  public String home(Model model, HttpSession session) {
+  public String home(Model model, HttpSession session, @ModelAttribute("errorMessage") String errorMessage) {
     List<Post> posts = postService.getAllPosts();
     List<Notice> notices = noticeService.get5Notices();
     model.addAttribute("posts", posts);
@@ -39,6 +40,10 @@ public class HomeController {
     User user = (User) session.getAttribute("user");
     if (user != null) {
       model.addAttribute("user", user);
+    }
+
+    if (errorMessage != null && !errorMessage.isEmpty()) {
+      model.addAttribute("errorMessage", errorMessage);
     }
 
     return "home";
