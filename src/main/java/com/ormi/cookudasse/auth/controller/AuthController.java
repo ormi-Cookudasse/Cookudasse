@@ -5,7 +5,8 @@ import com.ormi.cookudasse.auth.dto.FindPasswordRequest;
 import com.ormi.cookudasse.auth.dto.LoginRequest;
 import com.ormi.cookudasse.auth.dto.SignupRequest;
 import com.ormi.cookudasse.auth.service.UserService;
-import lombok.Getter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,54 +17,31 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping("/api/auth")
+@RequestMapping(path = "/api/auth")
 public class AuthController {
 
+    private static final Logger log = LoggerFactory.getLogger(AuthController.class);
     @Autowired
     private UserService userService;
 
     @GetMapping("/login")
     public String showLoginForm(Model model) {
-        model.addAttribute("user", new User());
+        model.addAttribute("user", new LoginRequest());
+        model.addAttribute("signupRequest", new SignupRequest());
         return "login";
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody LoginRequest loginRequest, HttpSession session, RedirectAttributes redirectAttributes) {
+    public String login(@ModelAttribute LoginRequest loginRequest, HttpSession session, RedirectAttributes redirectAttributes, Model model) {
         User findUser = userService.authenticate(loginRequest.getEmail(), loginRequest.getPassword());
         if (findUser != null) {
             session.setAttribute("user", findUser);
-            return "redirect:/home";    // 다시 home.html 로
+            model.addAttribute("user", findUser);  // 모델에도 사용자 정보 추가
+            return "redirect:/";    // 다시 home.html 로
         } else {
             redirectAttributes.addFlashAttribute("errorMessage", "Invalid email or password");
             return "redirect:/login";   // 이후 login.html 에서
         }
-
-//        try {
-//            if (userService.authenticate(loginRequest.getEmail(), loginRequest.getPassword())) {
-//                session.setAttribute("email", loginRequest.getEmail());
-//                model.addAttribute("message", "Login successful");
-//                return "loginSuccess";
-//            } else {
-//                model.addAttribute("error", "Invalid credentials");
-//                return "loginError";
-//            }
-//        } catch (RuntimeException e) {
-//            model.addAttribute("error", e.getMessage());
-//            return "loginError";
-//        }
-
-        // 교안에서 나온 것
-        /*try {
-            Authentication authentication =
-                    authenticationManager.authenticate(
-                            new UsernamePasswordAuthenticationToken(
-                                    loginRequest.getUsername(), loginRequest.getPassword()));
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-            return ResponseEntity.ok("로그인 성공");
-        } catch (BadCredentialsException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인 실패: 잘못된 인증 정보");
-        }*/
     }
 
     @GetMapping("/signup")
@@ -73,14 +51,17 @@ public class AuthController {
     }
 
     @PostMapping("/signup")
-    public String signup(@ModelAttribute SignupRequest signupRequest, RedirectAttributes redirectAttributes) {
+    public String signup(@ModelAttribute("signupRequest") SignupRequest signupRequest, Model model) {
         try {
-            User user = userService.registerUser(signupRequest);
-            redirectAttributes.addFlashAttribute("message", "User registered successfully");
+            log.debug("Signup request: {}", signupRequest);
+            userService.registerUser(signupRequest);
+            model.addAttribute("message", "User registered successfully");
             return "redirect:/api/auth/login";
+//            return "redirect:/";
         } catch (RuntimeException e) {
-            redirectAttributes.addFlashAttribute("error", e.getMessage());
-            return "redirect:/api/auth/signup";
+            log.error("Error while signup", e);
+            model.addAttribute("error", e.getMessage());
+            return "redirect:/signup";
         }
     }
 
@@ -104,7 +85,7 @@ public class AuthController {
     }
 
     @PostMapping("/find-password")
-    public String findPassword(@RequestBody FindPasswordRequest request, Model model) {
+    public String findPassword(@ModelAttribute FindPasswordRequest request, Model model) {
         try {
             userService.initiatePasswordReset(request.getEmail());
             model.addAttribute("message", "Password reset initiated. Check your email.");

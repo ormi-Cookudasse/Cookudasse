@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>관리자 페이지</title>
+    <!--    <link rel="stylesheet" th:href="../static/css/admin.css">-->
+    <link rel="stylesheet" th:href="@{/css/admin.css}">
+</head>
+<body>
+<div class="container">
+    <div class="header-contain">
+        <a th:href="@{/}" class="logo"><img th:src="@{/css/logo.png}" alt="홈페이지 이동 로고"></a>
+        <a href="" class="page-name">관리자 페이지</a>
+    </div>
+    <div class="content-admin">
+        <p class="category-name">아이디 목록</p>
+        <div class="search-form">
+            <p></p>
+            <form action="" method="get">
+                <input class="id-search" type="text" name="id-search" placeholder="아이디를 입력하세요.">
+                <button class="button-search" type="button" th:onclick="|location.href='@{/admin}';|">검색하기</button>
+            </form>
+        </div>
+        <div class="list">
+            <table>
+                <thead>
+                <tr>
+                    <th>아이디</th>
+                    <th>이름</th>
+                    <th>이메일</th>
+                    <th>현재권한</th>
+                    <th>권한선택</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="user:${users}">
+                    <td th:text="${user.id}">아이디</td>
+                    <td th:text="${user.username}">이름</td>
+                    <td th:text="${user.email}">이메일</td>
+                    <td th:text="${user.role}">권한</td>
+                    <td>
+                        <!--                        <select id="select-authorize" th:field="*{role}">-->
+                        <!--                            <option value="">권한수정</option>-->
+                        <!--                            <option th:each="roleE:${role}"-->
+                        <!--                                    th:value="${role}"-->
+                        <!--                                    th:text="${role.getDescription()}"></option>-->
+                        <!--                        </select>-->
+                        <select th:field="*{role}">
+                            <option th:each="role : ${T(com.ormi.cookudasse.auth.domain.Role).values()}"
+                                    th:value="${role}"
+                                    th:text="${role.description}">
+                            </option>
+                        </select>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div>
+
+    </div>
+    <div class="save">
+        <button class="button-save" type="button" th:onclick="|location.href='@{/admin}';|">저장하기</button>
+    </div>
+</div>
+<script src="../static/js/admin.js"></script>
+</body>
+</html>

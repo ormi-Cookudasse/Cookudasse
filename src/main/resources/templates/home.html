@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Mouse 요리 블로그</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/home.css}"/>
+    <!--    <link rel="stylesheet" href="../static/css/home.css"/>-->
+</head>
+<body>
+<header>
+    <a href="home.html" class="logo">
+        <img th:src="@{/css/logo.png}" alt="Mouse Logo">
+    </a>
+
+    <div class="search-container">
+        <select>
+            <option value="">All Categories</option>
+            <option value="korean">면요리</option>
+            <option value="chinese">밥요리</option>
+            <option value="italian">국물요리</option>
+            <option value="japanese">디저트</option>
+        </select>
+        <input type="text" placeholder="Search"/>
+        <button type="submit">
+            <img th:src="@{/css/searchicon-black.png}"/>
+        </button>
+    </div>
+
+    <nav>
+        <th:block th:if="${session.user == null}">
+            <a href="/api/auth/login">LOGIN</a>
+        </th:block>
+        <th:block th:if="${session.user != null}">
+            <a href="/api/auth/">회원 탈퇴</a>
+            <a href="/api/admin/">회원 권한 조정</a>
+        </th:block>
+    </nav>
+
+</header>
+
+<div id="mouse_intro">
+    <img th:src="@{/css/logo.png}" alt="Mouse Logo"/>
+    <h2>다 함께 cook!</h2>
+</div>
+
+<nav id="category_nav">
+    <a href="#">면 요리</a>
+    <a href="#">밥 요리</a>
+    <a href="#">국물 요리</a>
+    <a href="#">디저트</a>
+</nav>
+
+<main>
+    <aside>
+        <div class="notice">
+            <h3>공지사항</h3>
+            <a href="/api/notice/write" id="add-notice" title="공지사항 추가">공지사항 작성</a>
+            <div th:each="notice : ${notices}" class="notice-item">
+                <a th:href="@{'/api/notice/' + ${notice.id}}">
+                    <p th:text="${notice.title}"></p>
+                </a>
+            </div>
+        </div>
+    </aside>
+    <!--  <section id="recipe-grid">-->
+    <div id="recipe_grid" class="section">
+        <div th:each="post : ${posts}" class="post-item">
+            <a th:href="@{'/post/' + ${post.postId}}">
+                <div class="post-item-each">
+                    <h2 th:text="${post.postDetail.postTitle}"></h2>
+                    <!--                    <img src="" alt="food img">-->
+                    <p th:text="${post.postDetail.foodCategory}"></p>
+                </div>
+            </a>
+        </div>
+    </div>
+    <!--  </section>-->
+</main>
+
+<div class="floating-buttons">
+    <a href="#" id="scroll-to-top" title="Go to top">↑</a>
+    <a href="/write" id="add-recipe" title="레시피 추가">+</a>
+    <a href="/write" id="write-post" title="글쓰기">✏️</a>
+</div>
+<script th:inline="javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        var errorMessage = /*[[${errorMessage}]]*/ null;
+        if (errorMessage) {
+            alert(errorMessage);
+        }
+    });
+</script>
+<script th:src="@{/js/home.js}"></script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>레시피 작성</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div class="container">
+  <div>
+    <img th:src="@{/css/logo.png}" alt="요리조리 로고" class="logo">
+  </div>
+
+  <main role="main">
+    <form th:action="@{/write}" th:object="${postDetail}" method="post" enctype="multipart/form-data">
+      <div class="form-group">
+        <label for="foodCategory">카테고리:</label>
+        <select id="foodCategory" th:field="*{foodCategory}">
+          <option value="">게시판을 선택해주세요</option>
+          <option th:each="category : ${foodCategories}"
+                  th:value="${category}"
+                  th:text="${category}">
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="postTitle">요리이름:</label>
+        <input type="text" id="postTitle" th:field="*{postTitle}" required>
+      </div>
+
+      <div class="form-group">
+        <label for="ingredients">요리재료:</label>
+        <textarea id="ingredients" th:field="*{ingredients}" required></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="recipe">요리 레시피:</label>
+        <textarea id="recipe" th:field="*{recipe}" required></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="images">사진첨부:</label>
+        <input type="file" id="images" name="images" multiple accept="image/*">
+      </div>
+
+      <div class="button-group">
+        <button type="submit">저장</button>
+        <button type="button" onclick="history.back()">취소</button>
+      </div>
+    </form>
+
+  </main>
+</div>
+<script th:src="@{/js/script.js}"></script>
+</body>
+</html>

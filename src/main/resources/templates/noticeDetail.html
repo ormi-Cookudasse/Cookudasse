@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${notice.title}">공지사항 제목</title>
+    <link rel="stylesheet" th:href="@{/css/noticeStyle.css}">
+</head>
+<body>
+<div class="container">
+    <a href="/" class="logo">
+        <img th:src="@{/css/logo.png}" alt="Mouse Logo" class="logo">
+    </a>
+    <!--    <div>-->
+    <!--        <img th:src="@{/css/logo.png}" alt="요리조리 로고" class="logo">-->
+    <!--    </div>-->
+
+    <div class="notice-view" role="main">
+        <h2>제목</h2>
+        <div id="notice-title" th:text="${notice.title}">
+            제목
+        </div>
+        <h2>내용</h2>
+        <div id="notice-content" th:utext="${notice.content}">
+            내용
+        </div>
+
+        <div class="action-buttons">
+            <a th:href="@{/api/notice/{id}/edit(id=${notice.id})}" id="edit">수정하기</a>
+            <form th:action="@{/api/notice/{id}/delete(id=${notice.id})}" method="post"
+                  onsubmit="return confirm('정말로 삭제하시겠습니까?');" id="delete">
+                <button type="submit">삭제하기</button>
+            </form>
+        </div>
+    </div>
+</div>
+<!--<script th:src="@{/js/script.js}"></script>-->
+</body>
+</html>

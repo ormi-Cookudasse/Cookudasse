@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>댓글 작성</title>
+    <link rel="stylesheet" href="../css/comment.css">
+</head>
+<body>
+<div class="comment-form">
+    <form th:action="@{/comments/create}" method="post" th:object="${commentForm}">
+        <textarea th:field="*{content}" placeholder="댓글을 입력하세요..."></textarea>
+        <button type="submit">등록</button>
+    </form>
+</div>
+</body>
+</html>

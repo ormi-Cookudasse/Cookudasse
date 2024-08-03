@@ -14,7 +14,7 @@ public class AuthInterceptor implements HandlerInterceptor {
             if (isAjaxRequest(request)) {
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
             } else {
-                response.sendRedirect("/login");
+                response.sendRedirect("/api/auth/login");
             }
             return false;
         }

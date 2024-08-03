@@ -21,7 +21,7 @@ public class DBTest {
                      DriverManager.getConnection(
                              "jdbc:mysql://localhost:3306/cookudasse?serverTimezone=Asia/Seoul",
                              "root",
-                             "0000")) {
+                             "1234")) {
             System.out.println(con);
         } catch (Exception e) {
             e.printStackTrace();

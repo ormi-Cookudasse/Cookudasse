@@ -9,7 +9,7 @@
 <body>
 <div class="container">
     <div class="logo">
-        <img th:src="@{../static/img/mouse.png}" alt="요리조리 로고">
+        <img th:src="@{/css/logo.png}" alt="요리조리 로고">
     </div>
 
     <div th:if="${errorMessage}" class="error-message" th:text="${errorMessage}"></div>
@@ -20,22 +20,30 @@
         <div class="tab" data-form="signup">Sign Up</div>
     </div>
 
-    <form th:action="@{/api/auth/login}" method="post">
-        <input type="text" name="email" placeholder="아이디 *" required>
-        <input type="password" name="password" placeholder="비밀번호 *" required>
+    <div th:if="${error}" class="error-message" th:text="${error}"></div>
+
+    <form id="signin-form" th:action="@{/api/auth/login}" th:object="${user}" method="post">
+        <label>
+            <input type="email" id="signin-email" name="email" th:field="*{email}" placeholder="이메일 *" required>
+        </label>
+        <label>
+            <input type="password" id="signin-password" name="password" th:field="*{password}" placeholder="비밀번호 *" required>
+        </label>
         <button type="submit">SIGN IN</button>
         <div class="find-links">
             <a th:href="@{/api/auth/find-password}">FIND YOUR ID/PASSWORD</a>
         </div>
     </form>
-
-    <form th:action="@{/api/auth/login}" method="post">
-        <input type="text" name="username" placeholder="이름 *" required>
-        <input type="text" name="email" placeholder="아이디 *" required>
-        <input type="password" name="password" placeholder="비밀번호 *" required>
-        <input type="text" name="nickname" placeholder="닉네임 *" required>
-        <input type="date" name="birthDate" placeholder="생년월일 *" required>
-        <input type="email" name="email" placeholder="이메일 *" required>
+    <form id="signup-form" th:action="@{/api/auth/signup}" th:object="${signupRequest}" method="post">
+        <label>
+            <input type="text" name="username" th:field="*{username}" placeholder="이름 *" required>
+        </label>
+        <label>
+            <input type="email" id="signup-email" name="email" th:field="*{email}" placeholder="이메일 *" required>
+        </label>
+        <label>
+            <input type="password" id="signup-password" name="password" th:field="*{password}" placeholder="비밀번호 *" required>
+        </label>
         <button type="submit">SIGN UP</button>
     </form>
 </div>

@@ -1,7 +1,5 @@
 package com.ormi.cookudasse.auth.domain;
 
-//import com.ormi.cookudasse.common.Role;
-
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,6 +20,7 @@ public class User {
     private String password;
     private String email;
 
+    @Setter
     @Enumerated
     private Role role;
 }
