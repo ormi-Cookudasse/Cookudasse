@@ -66,15 +66,21 @@ public class AuthController {
         }*/
     }
 
+    @GetMapping("/signup")
+    public String showSignupForm(Model model) {
+        model.addAttribute("signupRequest", new SignupRequest());
+        return "signup";
+    }
+
     @PostMapping("/signup")
-    public String signup(@RequestBody SignupRequest signupRequest, Model model) {
+    public String signup(@ModelAttribute SignupRequest signupRequest, RedirectAttributes redirectAttributes) {
         try {
             User user = userService.registerUser(signupRequest);
-            model.addAttribute("message", "User registered successfully");
-            return "signupSuccess";
+            redirectAttributes.addFlashAttribute("message", "User registered successfully");
+            return "redirect:/api/auth/login";
         } catch (RuntimeException e) {
-            model.addAttribute("error", e.getMessage());
-            return "signupError";
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+            return "redirect:/api/auth/signup";
         }
     }
 
@@ -82,7 +88,7 @@ public class AuthController {
     public String logout(HttpSession session, Model model) {
         session.invalidate();
         model.addAttribute("message", "Logged out successfully");
-        return "logoutSuccess";
+        return "redirect:/home";
     }
 
     @GetMapping("/find-id")
@@ -106,6 +112,25 @@ public class AuthController {
         } catch (RuntimeException e) {
             model.addAttribute("error", e.getMessage());
             return "passwordResetError";
+        }
+    }
+
+    @PostMapping("/delete")
+    public String deleteUser(HttpSession session, RedirectAttributes redirectAttributes) {
+        User user = (User) session.getAttribute("user");
+        if (user != null) {
+            try {
+                userService.deleteUser(user.getEmail());
+                session.invalidate(); // 세션 무효화
+                redirectAttributes.addFlashAttribute("message", "Your account has been successfully deleted.");
+                return "redirect:/api/auth/login";
+            } catch (RuntimeException e) {
+                redirectAttributes.addFlashAttribute("error", "Failed to delete account: " + e.getMessage());
+                return "redirect:/home";
+            }
+        } else {
+            redirectAttributes.addFlashAttribute("error", "You must be logged in to delete your account.");
+            return "redirect:/api/auth/login";
         }
     }
 }

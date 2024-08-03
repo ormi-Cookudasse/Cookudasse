@@ -4,35 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>요리조리</title>
-    <link rel="stylesheet" th:href="@{../static/css/login.css}">
+    <link rel="stylesheet" th:href="@{/css/login.css}">
 </head>
 <body>
 <div class="container">
     <div class="logo">
         <img th:src="@{../static/img/mouse.png}" alt="요리조리 로고">
     </div>
+
+    <div th:if="${errorMessage}" class="error-message" th:text="${errorMessage}"></div>
+    <div th:if="${successMessage}" class="success-message" th:text="${successMessage}"></div>
+
     <div class="tabs">
-        <div class="tab active" data-form="signin">Sign In</div>
+        <div class="tab" data-form="signin">Sign In</div>
         <div class="tab" data-form="signup">Sign Up</div>
     </div>
-    <div th:if="${error}" class="error-message" th:text="${error}"></div>
-    <form id="signin-form" th:action="@{/api/auth/login}" method="post">
-        <input type="text" name="email" placeholder="이메일 *" required>
+
+    <form th:action="@{/api/auth/login}" method="post">
+        <input type="text" name="email" placeholder="아이디 *" required>
         <input type="password" name="password" placeholder="비밀번호 *" required>
         <button type="submit">SIGN IN</button>
         <div class="find-links">
-            <a th:href="@{/find}">FIND YOUR ID/PASSWORD</a>
+            <a th:href="@{/api/auth/find-password}">FIND YOUR ID/PASSWORD</a>
         </div>
     </form>
-    <form id="signup-form" th:action="@{/api/auth/signup}" method="post" style="display:none;">
+
+    <form th:action="@{/api/auth/login}" method="post">
         <input type="text" name="username" placeholder="이름 *" required>
-        <input type="email" name="email" placeholder="이메일 *" required>
+        <input type="text" name="email" placeholder="아이디 *" required>
         <input type="password" name="password" placeholder="비밀번호 *" required>
         <input type="text" name="nickname" placeholder="닉네임 *" required>
         <input type="date" name="birthDate" placeholder="생년월일 *" required>
+        <input type="email" name="email" placeholder="이메일 *" required>
         <button type="submit">SIGN UP</button>
     </form>
 </div>
-<script th:src="@{../static/script/login.js}"></script>
+<script th:src="@{/js/login.js}"></script>
 </body>
 </html>

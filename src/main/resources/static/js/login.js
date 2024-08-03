@@ -17,5 +17,10 @@ document.addEventListener('DOMContentLoaded', function() {
         tabs.forEach(tab => {
             tab.classList.toggle('active', tab.getAttribute('data-form') === formId);
         });
+
+        // 폼 전환 후 첫 번째 입력 필드에 포커스
+        const activeForm = document.getElementById(formId + '-form');
+        const firstInput = activeForm.querySelector('input');
+        if (firstInput) firstInput.focus();
     }
 });
