@@ -26,13 +26,17 @@ public class UserService {
       throw new RuntimeException("Email already exists");
     }
 
+    log.info("======== " + request.getAdminAnswer() + "===========");
+
+    Role role = request.getAdminAnswer().equals("Spring!") ? Role.MANAGER : Role.ORDINARY;
+
     // request로 받아온 정보와 Role.ORDINARY로 회원 build
     User user =
         User.builder()
             .email(request.getEmail())
             .password(request.getPassword()) // 주의: 실제로는 비밀번호를 해시화해야 합니다
             .username(request.getUsername())
-            .role(Role.ORDINARY) // 기본 역할을 ORDINARY로 설정
+            .role(role) // 기본 역할을 ORDINARY, 가입 시 질문 정답일 경우 MANAGER
             .build();
 
     // repository에 저장
