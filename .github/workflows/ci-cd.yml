@@ -9,7 +9,7 @@ name: cookudasse ci/cd
 
 on:
   push:
-    branches: [ "develop", "feature/ci-cd-scripts" ]
+    branches: [ "develop" ]
 
 # 해당 스크립트에서 사용될 환경 변수
 env:
@@ -21,8 +21,6 @@ permissions:
   contents: read
 
 jobs:
-  deploy:
-    timeout-minutes: 15
 
   build:
 
@@ -96,3 +94,4 @@ jobs:
             if [ $(sudo docker ps -aq) ]; then sudo docker rm $(sudo docker ps -aq); fi
             sudo docker run -d -p 8080:8080 --name ${{ env.SERVICE_NAME }}-${{env.IMAGE_TAG}} ${{ secrets.DOCKER_USERNAME }}/${{ env.SERVICE_NAME }}:${{env.IMAGE_TAG}}
             sudo docker image prune -f
+          timeout: 30m
