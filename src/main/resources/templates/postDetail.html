@@ -30,7 +30,31 @@
         요리 레시피 내용
       </div>
     </div>
+    <div class="container">
+      <!-- 기존 게시글 내용 -->
 
+      <!-- 댓글 섹션 추가 -->
+      <div class="comments-section">
+        <h3>댓글</h3>
+
+        <!-- 댓글 목록 -->
+        <div class="comments-list">
+          <div th:each="comment : ${comments}" class="comment">
+            <p th:text="${comment.content}">댓글 내용</p>
+            <small th:text="${comment.author + ' - ' + #temporals.format(comment.createdAt, 'yyyy-MM-dd HH:mm')}">작성자 - 날짜</small>
+          </div>
+        </div>
+
+        <!-- 댓글 작성 폼 -->
+        <div class="comment-form">
+          <h4>댓글 작성</h4>
+          <form th:action="@{'/post/' + ${post.postDetailId} + '/comment'}" method="post">
+            <textarea name="content" rows="3" required placeholder="댓글을 입력하세요"></textarea>
+            <button type="submit">댓글 작성</button>
+          </form>
+        </div>
+      </div>
+    </div>
     <div class="reaction-buttons">
       <button id="likeButton" th:data-post-id="${post.postDetailId}" onclick="likePost(this)">
         👍 <span id="likeCount" th:text="${post.postLike}">0</span>
@@ -38,12 +62,14 @@
     </div>
 
     <div class="action-buttons">
+
       <div class="view-count">
         조회수: <span th:text="${post.postView}">0</span>
       </div>
       <a th:href="@{/post/{id}/edit(id=${post.postDetailId})}" id="edit">수정하기</a>
       <form th:action="@{/post/{id}/delete(id=${post.postDetailId})}" method="post" onsubmit="return confirm('정말로 삭제하시겠습니까?');" id="delete">
         <button type="submit">삭제하기</button>
+        <a class="button" th:href="@{/}">홈으로</a>
       </form>
     </div>
   </div>
