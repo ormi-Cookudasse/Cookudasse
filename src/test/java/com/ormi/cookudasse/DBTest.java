@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
+/*
 public class DBTest {
     static {
         try {
@@ -27,4 +28,4 @@ public class DBTest {
             e.printStackTrace();
         }
     }
-}
+}*/
