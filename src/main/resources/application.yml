@@ -12,6 +12,8 @@ spring:
   web:
     resources:
       static-locations: classpath:/static/
+  application:
+    name: cookudasse
 
   jpa:
     open-in-view: true
