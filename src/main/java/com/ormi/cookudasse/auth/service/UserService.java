@@ -52,19 +52,6 @@ public class UserService {
     return user;
   }
 
-  /*public User authenticate(String email, String password) {
-    User user =
-        userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
-    //        if (user.getRole() == Role.BANNED) {
-    //            throw new RuntimeException("This account is banned");
-    //        }
-    if (user != null && user.getPassword().equals(password)) {
-      return user;
-    }
-    return null;
-    //        return user.getPassword().equals(password); // 주의: 실제로는 안전한 비교 방법을 사용해야 합니다
-  }*/
-
   public User findByEmail(String email) {
     return userRepository
         .findByEmail(email)
@@ -80,10 +67,12 @@ public class UserService {
     return findByEmail(email).getUsername();
   }
 
-  public void initiatePasswordReset(String email) {
+  public String initiatePasswordReset(String email) {
     User user = findByEmail(email);
-    // 비밀번호 재설정 로직 구현 (예: 임시 비밀번호 생성 및 이메일 발송)
-    System.out.println("Password reset initiated for user: " + user.getUsername());
+    // 실제 비밀번호 재설정 대신 메시지 반환
+    String message = "비밀번호 재설정 링크가 " + user.getEmail() + "로 전송되었습니다. (실제로는 전송되지 않음)";
+    System.out.println(message);
+    return message;
   }
 
   public void changeUserRole(String email, Role newRole) {
