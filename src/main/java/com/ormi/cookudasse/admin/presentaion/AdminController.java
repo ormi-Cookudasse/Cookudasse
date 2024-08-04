@@ -10,6 +10,7 @@ import com.ormi.cookudasse.auth.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -34,7 +35,9 @@ public class AdminController {
   @GetMapping("/users")
   public String getAllUsers(Model model) {
     System.out.println("+++++++++++++@@@");
-    List<User> users = userRepository.findAll();
+    List<User> users = new ArrayList<>();
+    users.addAll(userRepository.findAllByRole(Role.BANNED));
+    users.addAll(userRepository.findAllByRole(Role.ORDINARY));
     model.addAttribute("users", users);
     model.addAttribute("role", Role.values());
     return "admin"; // 이후 관리자 페이지 admin.html 만들어야 함.
