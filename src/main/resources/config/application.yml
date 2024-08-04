@@ -1,17 +1,14 @@
 spring:
-  profiles:
-    include: secret
   servlet:
     multipart:
       enabled: true
   datasource:
-    url: jdbc:mysql://localhost:3306/cookudasse
-    username: root
-    password: 1234
     driver-class-name: com.mysql.cj.jdbc.Driver
   web:
     resources:
       static-locations: classpath:/static/
+  application:
+    name: cookudasse
 
   jpa:
     open-in-view: true
@@ -19,8 +16,7 @@ spring:
       ddl-auto: update
       format_sql: true
     show-sql: true
-    properties:
-      dialect: org.hibernate.dialect.MySQL8InnoDBDialect
+    database-platform: org.hibernate.dialect.MySQLDialect
 
   thymeleaf:
     prefix: classpath:/templates/
