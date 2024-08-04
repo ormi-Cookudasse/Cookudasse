@@ -5,6 +5,7 @@ import com.ormi.cookudasse.post.entitiy.Post;
 import com.ormi.cookudasse.post.repository.CommentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
