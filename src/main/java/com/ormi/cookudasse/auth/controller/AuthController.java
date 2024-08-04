@@ -84,15 +84,24 @@ public class AuthController {
         }
     }
 
+    @GetMapping("/find-password")
+    public String showFindPasswordForm(Model model) {
+        log.debug("Entering showFindPasswordForm method");
+        model.addAttribute("findPasswordRequest", new FindPasswordRequest());
+        log.debug("Returning 'find' view");
+        return "find";
+    }
+
     @PostMapping("/find-password")
-    public String findPassword(@ModelAttribute FindPasswordRequest request, Model model) {
+    public String findPassword(@RequestParam String email, Model model) {
         try {
-            userService.initiatePasswordReset(request.getEmail());
-            model.addAttribute("message", "Password reset initiated. Check your email.");
-            return "passwordResetInitiated";
+            String username = userService.findUsernameByEmail(email);
+            String resetMessage = userService.initiatePasswordReset(email);
+            model.addAttribute("message", "사용자 이름은 " + username + "입니다. " + resetMessage);
+            return "find";
         } catch (RuntimeException e) {
-            model.addAttribute("error", e.getMessage());
-            return "passwordResetError";
+            model.addAttribute("error", "사용자를 찾을 수 없습니다: " + e.getMessage());
+            return "find";
         }
     }
 
@@ -112,4 +121,13 @@ public class AuthController {
             return ResponseEntity.badRequest().body("You must be logged in to delete your account.");
         }
     }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session, RedirectAttributes redirectAttributes) {
+        session.invalidate(); // 세션 무효화
+        redirectAttributes.addFlashAttribute("message", "로그아웃되었습니다.");
+        return "redirect:/api/auth/login"; // 로그인 페이지로 리다이렉트
+    }
+
+
 }
