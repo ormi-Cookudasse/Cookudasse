@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mouse Recipe</title>
+    <link rel="stylesheet" href="home/css/home.css">
+</head>
+<body>
+<header>
+    <a href="foodHome.html" class="logo">
+        <img src="home/img/mouse.png" alt="Mouse Logo">
+    </a>
+
+    <div class="search-container">
+        <select>
+            <option value="">All Categories</option>
+            <option value="korean">KOREAN</option>
+            <option value="chinese">CHINESE</option>
+            <option value="italian">ITALIAN</option>
+            <option value="japanese">JAPANESE</option>
+            <option value="dessert">DESSERT</option>
+        </select>
+        <input type="text" placeholder="Search">
+        <button type="submit">
+            <img src="home/img/searchIcon-black.png">
+        </button>
+    </div>
+
+    <nav>
+        <a href="signup.html">SIGN UP</a>
+        <a href="login.html">LOGIN</a>
+    </nav>
+</header>
+
+<div id="mouse_intro">
+    <img src="home/img/mouse.png" alt="Mouse Logo">
+    <h2>mouse</h2>
+    <p>Tagline Here</p>
+</div>
+<div class="post-list">
+    <div class="category">
+        <div class="category-title"><td th:text="{post.category}"></td></div>
+        <div class="grid-item">
+            <img src="/api/placeholder/150/150" alt="김치볶음밥">
+            <td th:text="${post.title}"></td>
+        </div>
+    </div>
+    <div class="category">
+        <div class="category-title"><td th:text="{post.category}"></td></div>
+        <div class="grid-item">
+            <img src="/api/placeholder/150/150" alt="라면">
+            <td th:text="${post.title}"></td>
+        </div>
+    </div>
+    <div class="category">
+        <div class="category-title"><td th:text="{post.category}"></td></div>
+        <div class="grid-item">
+            <img src="/api/placeholder/150/150" alt="짜장면">
+            <td th:text="${post.title}"></td>
+        </div>
+    </div>
+    <div class="category">
+        <div class="category-title"><td th:text="{post.category}"></td></div>
+        <div class="grid-item">
+            <img src="/api/placeholder/150/150" alt="비빔밥">
+            <td th:text="${post.title}"></td>
+        </div>
+    </div>
+    <div class="category">
+        <div class="category-title"><td th:text="{post.category}"></td></div>
+        <div class="grid-item">
+            <img src="/api/placeholder/150/150" alt="볶음밥">
+            <td th:text="${post.title}"></td>
+        </div>
+    </div>
+    <div class="category">
+        <div class="category-title"><td th:text="{post.category}"></td></div>
+        <div class="grid-item">
+            <img src="/api/placeholder/150/150" alt="덮밥">
+            <td th:text="${post.title}"></td>
+        </div>
+    </div>
+    <div class="category">
+        <div class="category-title"><td th:text="{post.category}"></td></div>
+        <div class="grid-item">
+            <img src="/api/placeholder/150/150" alt="된장찌개">
+            <td th:text="${post.title}"></td>
+        </div>
+    </div>
+    <div class="category">
+        <div class="category-title"><td th:text="{post.category}"></td></div>
+        <div class="grid-item">
+            <img src="/api/placeholder/150/150" alt="김치찌개">
+            <td th:text="${post.title}"></td>
+        </div>
+    </div>
+    <div class="category">
+        <div class="category-title"><td th:text="{post.category}"></td></div>
+        <div class="grid-item">
+            <img src="/api/placeholder/150/150" alt="순두부찌개">
+            <td th:text="${post.title}"></td>
+        </div>
+    </div>
+</div>
+
+<div class="floating-buttons">
+    <a href="newRecipe.html" id="add-recipe" title="레시피 추가">+</a>
+</div>
+<a href="#" id="scroll-to-top" title="Go to top">↑</a>
+
+<script src="home/script/home.js"></script>
+</body>
+</html>
