@@ -40,6 +40,15 @@ public class UserService {
   }
 
   public User authenticate(String email, String password) {
+    User user = userRepository.findByEmail(email)
+            .orElseThrow(() -> new RuntimeException("User not found"));
+    if (!user.getPassword().equals(password)) { // 실제로는 암호화된 비밀번호를 비교해야 함
+      throw new RuntimeException("Invalid password");
+    }
+    return user;
+  }
+
+  /*public User authenticate(String email, String password) {
     User user =
         userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
     //        if (user.getRole() == Role.BANNED) {
@@ -50,7 +59,7 @@ public class UserService {
     }
     return null;
     //        return user.getPassword().equals(password); // 주의: 실제로는 안전한 비교 방법을 사용해야 합니다
-  }
+  }*/
 
   public User findByEmail(String email) {
     return userRepository

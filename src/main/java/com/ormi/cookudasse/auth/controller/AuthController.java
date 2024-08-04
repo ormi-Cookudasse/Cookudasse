@@ -33,15 +33,14 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public String login(@ModelAttribute LoginRequest loginRequest, HttpSession session, RedirectAttributes redirectAttributes, Model model) {
-        User findUser = userService.authenticate(loginRequest.getEmail(), loginRequest.getPassword());
-        if (findUser != null) {
-            session.setAttribute("user", findUser);
-            model.addAttribute("user", findUser);  // 모델에도 사용자 정보 추가
-            return "redirect:/";    // 다시 home.html 로
-        } else {
-            redirectAttributes.addFlashAttribute("errorMessage", "Invalid email or password");
-            return "redirect:/login";   // 이후 login.html 에서
+    public String login(@ModelAttribute LoginRequest loginRequest, HttpSession session, RedirectAttributes redirectAttributes) {
+        try {
+            User user = userService.authenticate(loginRequest.getEmail(), loginRequest.getPassword());
+            session.setAttribute("user", user);
+            return "redirect:/";
+        } catch (RuntimeException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "로그인 실패: " + e.getMessage());
+            return "redirect:/api/auth/login";
         }
     }
 
@@ -96,25 +95,6 @@ public class AuthController {
             return "passwordResetError";
         }
     }
-
-//    @PostMapping("/delete")
-//    public String deleteUser(HttpSession session, RedirectAttributes redirectAttributes) {
-//        User user = (User) session.getAttribute("user");
-//        if (user != null) {
-//            try {
-//                userService.deleteUser(user.getEmail());
-//                session.invalidate(); // 세션 무효화
-//                redirectAttributes.addFlashAttribute("message", "Your account has been successfully deleted.");
-//                return "redirect:/api/auth/login";
-//            } catch (RuntimeException e) {
-//                redirectAttributes.addFlashAttribute("error", "Failed to delete account: " + e.getMessage());
-//                return "redirect:/home";
-//            }
-//        } else {
-//            redirectAttributes.addFlashAttribute("error", "You must be logged in to delete your account.");
-//            return "redirect:/api/auth/login";
-//        }
-//    }
 
     @DeleteMapping("/delete")
     @ResponseBody
