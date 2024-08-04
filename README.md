@@ -24,8 +24,7 @@
 
 
 ### 1. 💾**개발 환경**
-![시스템 구조](https://github.com/user-attachments/assets/a00d2f53-250b-46f3-a141-7157af39a3a8)
-
+![개발환경](https://github.com/user-attachments/assets/e4d258b9-2623-4b15-87ca-2adb51daaecb)
 - Java JDK 17, JavaScript
 - 프론트엔드 : HTML, CSS, JS
 - 백엔드 : Spring Boot
