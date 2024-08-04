@@ -9,7 +9,7 @@ name: cookudasse ci/cd
 
 on:
   push:
-    branches: [ "develop" ]
+    branches: [ "develop", "feature/ci-cd-scripts" ]
 
 # 해당 스크립트에서 사용될 환경 변수
 env:
@@ -21,6 +21,9 @@ permissions:
   contents: read
 
 jobs:
+  deploy:
+    timeout-minutes: 15
+
   build:
 
     # Github의 워크플로에서 실행될 OS 선택
