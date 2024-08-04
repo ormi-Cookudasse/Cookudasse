@@ -9,7 +9,7 @@ name: cookudasse ci/cd
 
 on:
   push:
-    branches: [ "develop", "feature/ci-cd" ]
+    branches: [ "develop" ]
 
 # 해당 스크립트에서 사용될 환경 변수
 env:
