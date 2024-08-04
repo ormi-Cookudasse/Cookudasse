@@ -17,17 +17,19 @@
         </a>
     </div>
 
-    <div th:if="${errorMessage}" class="error-message" th:text="${errorMessage}"></div>
-    <div th:if="${successMessage}" class="success-message" th:text="${successMessage}"></div>
+    <!--<div id="messageContainer">
+        <div th:if="${errorMessage}" class="error-message" th:text="${errorMessage}"></div>
+        <div th:if="${successMessage}" class="success-message" th:text="${successMessage}"></div>
+    </div>-->
+
+    <input type="hidden" id="errorMessage" th:value="${errorMessage}" />
 
     <div class="tabs">
         <div class="tab" data-form="signin">Sign In</div>
         <div class="tab" data-form="signup">Sign Up</div>
     </div>
 
-    <div th:if="${error}" class="error-message" th:text="${error}"></div>
-
-    <form id="signin-form" th:action="@{/api/auth/login}" th:object="${user}" method="post">
+    <form id="signin-form" th:action="@{/api/auth/login}" th:object="${user}" method="post" style="display: block;">
         <label>
             <input type="email" id="signin-email" name="email" th:field="*{email}" placeholder="이메일 *" required>
         </label>
@@ -39,7 +41,7 @@
             <a th:href="@{/api/auth/find-password}">FIND YOUR ID/PASSWORD</a>
         </div>
     </form>
-    <form id="signup-form" th:action="@{/api/auth/signup}" th:object="${signupRequest}" method="post">
+    <form id="signup-form" th:action="@{/api/auth/signup}" th:object="${signupRequest}" method="post" style="display: none;">
         <label>
             <input type="text" name="username" th:field="*{username}" placeholder="이름 *" required>
         </label>
