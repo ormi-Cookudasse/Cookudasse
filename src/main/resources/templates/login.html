@@ -19,8 +19,9 @@
         <div th:if="${error}" class="error-message" th:text="${error}"></div>
     </div>
 
+
     <div class="tabs">
-        <div class="tab" data-form="signin">Sign In</div>
+        <div class="tab active" data-form="signin">Sign In</div>
         <div class="tab" data-form="signup">Sign Up</div>
     </div>
 
@@ -47,7 +48,7 @@
             <input type="password" id="signup-password" name="password" placeholder="비밀번호 *" required>
         </label>
         <label>
-            <input type="text" id="adminAnswer" name="adminAnswer" th:field="*{adminAnswer}" placeholder="관리자 인증 질문: 여름보다?">
+            <input type="text" id="adminAnswer" name="adminAnswer" placeholder="관리자 인증 질문: 여름보다?">
         </label>
         <button type="submit">SIGN UP</button>
     </form>
