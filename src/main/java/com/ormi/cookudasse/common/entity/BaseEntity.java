@@ -14,21 +14,34 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
+//@Getter
+//@MappedSuperclass
+//@EntityListeners(AuditingEntityListener.class)
+//public abstract class BaseEntity {
+//
+//    @Column(name = "created_at")
+//    @CreatedDate
+//    @JsonSerialize(using = LocalDateTimeSerializer.class)
+//    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+//    private LocalDateTime createdAt;
+//
+//    @Column(name = "modified_at")
+//    @LastModifiedDate
+//    @JsonSerialize(using = LocalDateTimeSerializer.class)
+//    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+//    private LocalDateTime modifiedAt;
+//
+//}
+
 @Getter
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 public abstract class BaseEntity {
-
     @Column(name = "created_at")
     @CreatedDate
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
-    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime createdAt;
 
     @Column(name = "modified_at")
     @LastModifiedDate
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
-    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-    private LocalDateTime modifiedAt;
-
+    private LocalDateTime updatedAt;
 }
