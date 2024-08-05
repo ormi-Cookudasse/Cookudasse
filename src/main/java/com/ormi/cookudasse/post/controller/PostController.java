@@ -105,7 +105,7 @@ public class PostController {
     private void checkAdmin(HttpSession session) {
         User user = (User) session.getAttribute("user");
         if (user == null || user.getRole().equals(Role.BANNED)) {
-            throw new RuntimeException("정지된 회원은 조회할 수 없는 콘텐츠입니다.");
+            throw new RuntimeException("정지된 회원은 접근이 제한된 기능입니다.");
         }
     }
 

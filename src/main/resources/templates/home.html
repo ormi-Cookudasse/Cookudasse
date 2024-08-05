@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Mouse 요리 블로그</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/home.css}"/>
-    <!--    <link rel="stylesheet" href="../static/css/home.css"/>-->
 </head>
 <body>
 <header>
@@ -64,7 +63,6 @@
             </div>
         </div>
     </aside>
-    <!--  <section id="recipe-grid">-->
     <div id="recipe_grid" class="section">
         <div th:each="post : ${posts}" class="post-item">
             <a th:href="@{'/post/' + ${post.postId}}">
@@ -76,13 +74,12 @@
             </a>
         </div>
     </div>
-    <!--  </section>-->
 </main>
 
 <div class="floating-buttons">
     <a href="#" id="scroll-to-top" title="Go to top">↑</a>
     <a href="/write" id="add-recipe" title="레시피 추가">+</a>
-    <a href="/write" id="write-post" title="글쓰기">✏️</a>
+<!--    <a href="/write" id="write-post" title="글쓰기">✏️</a>-->
 </div>
 
 <script th:inline="javascript">
