@@ -99,6 +99,8 @@ aside {
 .notice {
   background-color: white;
   padding: 10px;
+  min-height: 200px;
+  border-radius: 5px;
   h3 {
     text-align: center;
     margin-bottom: 10px;
@@ -134,6 +136,7 @@ aside {
 
 .post-item {
   background-color: white;
+  border-radius: 5px;
   padding: 10px;
   text-align: center;
   padding-top: 20px;

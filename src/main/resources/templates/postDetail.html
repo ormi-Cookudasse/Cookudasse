@@ -1,90 +1,96 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title th:text="${post.postTitle}">게시글 제목</title>
-  <link rel="stylesheet" th:href="@{/css/style.css}">
+    <meta charset="UTF-8">
+    <title th:text="${post.postTitle}">게시글 제목</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
 <div class="container">
-  <a href="/" class="logo">
-    <img th:src="@{/css/logo.png}" alt="Mouse Logo" class="logo">
-  </a>
+    <a href="/" class="logo">
+        <img th:src="@{/css/logo.png}" alt="Mouse Logo" class="logo">
+    </a>
 
-  <div class="post-info">
-    카테고리: <span id="post-category" th:text="${post.foodCategory}">카테고리</span>
-  </div>
-
-  <div class="post-view" role="main">
-    <h2>제목</h2>
-    <div id="post-title" th:text="${post.postTitle}">
-      제목
+    <div class="post-info">
+        카테고리: <span id="post-category" th:text="${post.foodCategory}">카테고리</span>
     </div>
 
-    <div class="post-content">
-      <h2>요리재료</h2>
-      <p th:text="${post.ingredients}" id="post-igd">요리 재료 내용</p>
-
-      <h2>요리 레시피</h2>
-      <div id="post-recipe" th:utext="${post.recipe}">
-        요리 레시피 내용
-      </div>
-    </div>
-    <div class="container">
-      <!-- 기존 게시글 내용 -->
-
-      <!-- 댓글 섹션 추가 -->
-      <div class="comments-section">
-        <h3>댓글</h3>
-
-        <!-- 댓글 목록 -->
-        <div class="comments-list">
-          <div th:each="comment : ${comments}" class="comment">
-            <p th:text="${comment.content}">댓글 내용</p>
-            <small th:text="${comment.author + ' - ' + #temporals.format(comment.createdAt, 'yyyy-MM-dd HH:mm')}">작성자 - 날짜</small>
-          </div>
+    <div class="post-view" role="main">
+        <h2>제목</h2>
+        <div id="post-title" th:text="${post.postTitle}">
+            제목
         </div>
 
-        <!-- 댓글 작성 폼 -->
-        <div class="comment-form">
-          <h4>댓글 작성</h4>
-          <form th:action="@{'/post/' + ${post.postDetailId} + '/comment'}" method="post">
-            <textarea name="content" rows="3" required placeholder="댓글을 입력하세요"></textarea>
-            <button type="submit">댓글 작성</button>
-          </form>
+        <div class="post-content">
+            <h2>요리재료</h2>
+            <p th:text="${post.ingredients}" id="post-igd">요리 재료 내용</p>
+
+            <h2>요리 레시피</h2>
+            <div id="post-recipe" th:utext="${post.recipe}">
+                요리 레시피 내용
+            </div>
+
+            <div class="reactions">
+                <div class="view-count">
+                    조회수: <span th:text="${post.postView}">0</span>
+                </div>
+                <button id="likeButton" th:data-post-id="${post.postDetailId}" onclick="likePost(this)">
+                    👍 <span id="likeCount" th:text="${post.postLike}">0</span>
+                </button>
+            </div>
+
+            <div class="action-buttons">
+                <a th:href="@{/post/{id}/edit(id=${post.postDetailId})}" id="edit">수정하기</a>
+                <form th:action="@{/post/{id}/delete(id=${post.postDetailId})}" method="post"
+                      onsubmit="return confirm('정말로 삭제하시겠습니까?');" id="delete">
+                    <button type="submit">삭제하기</button>
+                    <!--        <a class="button" th:href="@{/}">홈으로</a>-->
+                </form>
+            </div>
+
+
         </div>
-      </div>
-    </div>
-    <div class="reaction-buttons">
-      <button id="likeButton" th:data-post-id="${post.postDetailId}" onclick="likePost(this)">
-        👍 <span id="likeCount" th:text="${post.postLike}">0</span>
-      </button>
-    </div>
+        <div class="container">
+            <!-- 기존 게시글 내용 -->
 
-    <div class="action-buttons">
 
-      <div class="view-count">
-        조회수: <span th:text="${post.postView}">0</span>
-      </div>
-      <a th:href="@{/post/{id}/edit(id=${post.postDetailId})}" id="edit">수정하기</a>
-      <form th:action="@{/post/{id}/delete(id=${post.postDetailId})}" method="post" onsubmit="return confirm('정말로 삭제하시겠습니까?');" id="delete">
-        <button type="submit">삭제하기</button>
-        <a class="button" th:href="@{/}">홈으로</a>
-      </form>
+            <!-- 댓글 섹션 추가 -->
+            <div class="comments-section">
+                <h3>댓글</h3>
+
+                <!-- 댓글 목록 -->
+                <div class="comments-list">
+                    <div th:each="comment : ${comments}" class="comment">
+                        <p th:text="${comment.content}">댓글 내용</p>
+                        <small th:text="${comment.author + ' - ' + #temporals.format(comment.createdAt, 'yyyy-MM-dd HH:mm')}">작성자
+                            - 날짜</small>
+                    </div>
+                </div>
+
+                <!-- 댓글 작성 폼 -->
+                <div class="comment-form">
+                    <h4>댓글 작성</h4>
+                    <form th:action="@{'/post/' + ${post.postDetailId} + '/comment'}" method="post">
+                        <textarea name="content" rows="3" required placeholder="댓글을 입력하세요"></textarea>
+                        <button type="submit">댓글 작성</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
+
 <script th:src="@{/js/script.js}"></script>
 <script>
-  function likePost(button) {
-    var postId = button.getAttribute('data-post-id');
-    fetch('/post/' + postId + '/like', { method: 'POST' })
+    function likePost(button) {
+        var postId = button.getAttribute('data-post-id');
+        fetch('/post/' + postId + '/like', {method: 'POST'})
             .then(response => response.json())
             .then(data => {
-              document.getElementById('likeCount').textContent = data.likeCount;
+                document.getElementById('likeCount').textContent = data.likeCount;
             })
             .catch(error => console.error('Error:', error));
-  }
+    }
 </script>
 </body>
 </html>
