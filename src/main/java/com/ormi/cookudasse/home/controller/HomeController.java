@@ -21,18 +21,10 @@ public class HomeController {
   private final PostService postService;
   private final NoticeService noticeService;
 
-  //    @GetMapping("/")
-  //    public String home(Model model) {
-  //        List<Post> posts = postService.getAllPosts();
-  //        List<Notice> notices = noticeService.get5Notices();
-  //        model.addAttribute("posts", posts);
-  //        model.addAttribute("notices", notices);
-  //        return "home";
-  //    }
   @GetMapping("/")
   public String home(Model model, HttpSession session, @ModelAttribute("errorMessage") String errorMessage) {
     List<Post> posts = postService.getAllPosts();
-    List<Notice> notices = noticeService.get5Notices();
+    List<Notice> notices = noticeService.getNNotices(5);
     model.addAttribute("posts", posts);
     model.addAttribute("notices", notices);
 
