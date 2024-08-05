@@ -31,4 +31,5 @@ document.addEventListener("DOMContentLoaded", function () {
     setAdminBtn.onclick = function (e) {
         window.location.href = "/admin";
     };
+
 });
