@@ -24,8 +24,8 @@ public class NoticeService {
     }
 
     @Transactional(readOnly = true)
-    public List<Notice> get5Notices() {
-        return noticeRepository.findTop5ByOrderByCreatedAtDesc();
+    public List<Notice> getNNotices(int n) {
+        return noticeRepository.findLatestNotices(n);
     }
 
     @Transactional(readOnly = true)

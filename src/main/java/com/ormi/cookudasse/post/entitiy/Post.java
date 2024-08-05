@@ -1,6 +1,7 @@
 package com.ormi.cookudasse.post.entitiy;
 
 import com.ormi.cookudasse.auth.domain.User;
+import com.ormi.cookudasse.common.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -12,7 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 @AllArgsConstructor
-public class Post{
+public class Post extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "post_id")
@@ -27,18 +28,18 @@ public class Post{
     @JoinColumn(name = "post_detail_id")
     private PostDetail postDetail;
 
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
-
-    @PrePersist
-    protected void onCreate() {
-        createdAt = LocalDateTime.now();
-    }
-
-    @PreUpdate
-    protected void onUpdate() {
-        updatedAt = LocalDateTime.now();
-    }
+//    private LocalDateTime createdAt;
+//    private LocalDateTime updatedAt;
+//
+//    @PrePersist
+//    protected void onCreate() {
+//        createdAt = LocalDateTime.now();
+//    }
+//
+//    @PreUpdate
+//    protected void onUpdate() {
+//        updatedAt = LocalDateTime.now();
+//    }
 
     public void setImageUrl(String fileUrl) {
 
