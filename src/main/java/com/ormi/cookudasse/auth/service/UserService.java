@@ -23,10 +23,8 @@ public class UserService {
   public User registerUser(SignupRequest request) {
     // 이메일 중복 검사
     if (userRepository.existsByEmail(request.getEmail())) {
-      throw new RuntimeException("Email already exists");
+      throw new RuntimeException("이미 사용중인 이메일입니다.");
     }
-
-    log.info("======== " + request.getAdminAnswer() + "===========");
 
     Role role = request.getAdminAnswer().equals("Spring!") ? Role.MANAGER : Role.ORDINARY;
 
@@ -44,23 +42,23 @@ public class UserService {
   }
 
   public User authenticate(String email, String password) {
-    User user = userRepository.findByEmail(email)
-            .orElseThrow(() -> new RuntimeException("User not found"));
+    User user = findByEmail(email);
     if (!user.getPassword().equals(password)) { // 실제로는 암호화된 비밀번호를 비교해야 함
-      throw new RuntimeException("Invalid password");
+      throw new RuntimeException("비밀번호가 틀렸습니다.");
     }
     return user;
-  }
-
-  public User findByEmail(String email) {
-    return userRepository
-        .findByEmail(email)
-        .orElseThrow(() -> new RuntimeException("User not found"));
   }
 
   public void deleteUser(String email) {
     User user = findByEmail(email);
     userRepository.delete(user);
+  }
+
+  public User findByEmail(String email) {
+    log.info("======== " + email + "==========");
+    return userRepository
+            .findByEmail(email)
+            .orElseThrow(() -> new RuntimeException("사용자 정보가 존재하지 않습니다."));
   }
 
   public String findUsernameByEmail(String email) {

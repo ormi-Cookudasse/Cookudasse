@@ -1,12 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-    // 에러 메시지 처리
-    const errorMessageInput = document.getElementById('errorMessage');
-    if (errorMessageInput && errorMessageInput.value) {
-        alert(errorMessageInput.value);
-        errorMessageInput.value = '';
-    }
-
     const tabs = document.querySelectorAll('.tab');
     const forms = document.querySelectorAll('form');
 
