@@ -3,13 +3,11 @@ package com.ormi.cookudasse.post.controller;
 import com.ormi.cookudasse.auth.domain.Role;
 import com.ormi.cookudasse.auth.domain.User;
 import com.ormi.cookudasse.post.dto.request.PostRequest;
-import com.ormi.cookudasse.post.dto.response.PostSaveResponse;
 import com.ormi.cookudasse.post.entitiy.FoodCategory;
 import com.ormi.cookudasse.post.entitiy.Post;
 import com.ormi.cookudasse.post.entitiy.PostDetail;
 import com.ormi.cookudasse.post.service.CommentService;
 import com.ormi.cookudasse.post.service.PostService;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -18,10 +16,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -107,11 +103,5 @@ public class PostController {
         if (user == null || user.getRole().equals(Role.BANNED)) {
             throw new RuntimeException("정지된 회원은 접근이 제한된 기능입니다.");
         }
-    }
-
-    @ExceptionHandler(RuntimeException.class)
-    public String handleRuntimeException(RuntimeException ex, RedirectAttributes redirectAttributes, HttpServletRequest request) {
-        redirectAttributes.addFlashAttribute("errorMessage", ex.getMessage());
-        return "redirect:" + request.getHeader("Referer");
     }
 }
