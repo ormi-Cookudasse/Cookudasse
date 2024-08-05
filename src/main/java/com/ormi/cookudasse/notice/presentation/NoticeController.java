@@ -2,20 +2,15 @@ package com.ormi.cookudasse.notice.presentation;
 
 import com.ormi.cookudasse.auth.domain.Role;
 import com.ormi.cookudasse.auth.domain.User;
-import com.ormi.cookudasse.auth.repository.UserRepository;
 import com.ormi.cookudasse.notice.application.NoticeService;
 import com.ormi.cookudasse.notice.domain.Notice;
 import com.ormi.cookudasse.notice.dto.request.NoticeRequest;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.util.List;
 
 @Controller
 @RequestMapping(path = "/api/notice")
@@ -54,13 +49,17 @@ public class NoticeController {
 
   @PostMapping("/{id}/edit")
   public String updateNotice(
-      @PathVariable(name = "id") Long id, @ModelAttribute NoticeRequest noticeRequest) {
+      @PathVariable(name = "id") Long id,
+      @ModelAttribute NoticeRequest noticeRequest,
+      HttpSession session) {
+    checkAdmin(session);
     noticeService.updateNotice(id, noticeRequest);
     return "redirect:/api/notice/" + id;
   }
 
   @PostMapping("/{id}/delete")
-  public String deleteNotice(@PathVariable(name = "id") Long id) {
+  public String deleteNotice(@PathVariable(name = "id") Long id, HttpSession session) {
+    checkAdmin(session);
     noticeService.deleteNotice(id);
     return "redirect:/";
   }
@@ -68,13 +67,7 @@ public class NoticeController {
   private void checkAdmin(HttpSession session) {
     User user = (User) session.getAttribute("user");
     if (user == null || !user.getRole().equals(Role.MANAGER)) {
-      throw new RuntimeException("관리자가 아닙니다. 공지사항 작성은 관리자만 가능합니다.");
+      throw new RuntimeException("관리자만 접근할 수 있습니다.");
     }
-  }
-
-  @ExceptionHandler(RuntimeException.class)
-  public String handleRuntimeException(RuntimeException ex, RedirectAttributes redirectAttributes, HttpServletRequest request) {
-    redirectAttributes.addFlashAttribute("errorMessage", ex.getMessage());
-    return "redirect:" + request.getHeader("Referer");
   }
 }

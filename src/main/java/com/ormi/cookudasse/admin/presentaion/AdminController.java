@@ -1,7 +1,6 @@
 package com.ormi.cookudasse.admin.presentaion;
 
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +12,6 @@ import com.ormi.cookudasse.auth.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 import java.util.ArrayList;
@@ -62,11 +60,5 @@ public class AdminController {
         if (user == null || !user.getRole().equals(Role.MANAGER)) {
             throw new RuntimeException("관리자만 접근할 수 있습니다.");
         }
-    }
-
-    @ExceptionHandler(RuntimeException.class)
-    public String handleRuntimeException(RuntimeException ex, RedirectAttributes redirectAttributes, HttpServletRequest request) {
-        redirectAttributes.addFlashAttribute("errorMessage", ex.getMessage());
-        return "redirect:" + request.getHeader("Referer");
     }
 }

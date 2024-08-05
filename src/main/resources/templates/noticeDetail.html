@@ -10,9 +10,6 @@
     <a href="/" class="logo">
         <img th:src="@{/css/logo.png}" alt="Mouse Logo" class="logo">
     </a>
-    <!--    <div>-->
-    <!--        <img th:src="@{/css/logo.png}" alt="요리조리 로고" class="logo">-->
-    <!--    </div>-->
 
     <div class="notice-view" role="main">
         <h2>제목</h2>
@@ -33,6 +30,14 @@
         </div>
     </div>
 </div>
-<!--<script th:src="@{/js/script.js}"></script>-->
+
+<script th:inline="javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        var errorMessage = /*[[${errorMessage}]]*/ null;
+        if (errorMessage) {
+            alert(errorMessage);
+        }
+    });
+</script>
 </body>
 </html>
