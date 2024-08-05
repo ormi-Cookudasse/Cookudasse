@@ -4,6 +4,7 @@ import com.ormi.cookudasse.admin.dto.AdminRequest;
 import com.ormi.cookudasse.auth.domain.Role;
 import com.ormi.cookudasse.auth.domain.User;
 import com.ormi.cookudasse.auth.repository.UserRepository;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,19 +24,10 @@ public class AdminService {
         return userRepository.findById(id).orElse(null);
     }
 
-    //관리자 권한 확인
-    // home.html 에서 관련 로직 필요
-    public void checkAdmin(Long id) {
-        User user = getUserById(id);
-        if (user == null || user.getRole() != Role.MANAGER) {
-           throw new RuntimeException("관리자만 접근할 수 있습니다.");
-        }
-    }
-
     //유저 권한 확인
-    public void userRoleCheck(Long id){
-        User user = getUserById(id);
-        if (user != null && user.getRole() == Role.BANNED) {
+    public void userRoleCheck(HttpSession session){
+        User user = (User) session.getAttribute("user");
+        if (user != null && user.getRole().equals(Role.BANNED)) {
             throw new RuntimeException("회원권한이 정지되어 공지사항만 열람가능합니다.");
         }
     }
@@ -48,9 +40,9 @@ public class AdminService {
 
 
         // 2. request dto 의 해당 회원 id 를 가져오고, UserRepository.findById(userId) 로 접근해서, 해당 회원의 권한(auth?) 필드 조정(일반과 정지 둘 중 하나)
-        User findUser = userRepository.findById(request.getUserId()).orElse(null);
+        User findUser = userRepository.findById(request.getUserId()).orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다."));
         findUser.setRole(request.getRole());
-        return findUser;
+        return userRepository.save(findUser);
 
     }
 }

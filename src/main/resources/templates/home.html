@@ -34,7 +34,7 @@
         <th:block th:if="${session.user != null}">
             <a href="/api/auth/logout">LOGOUT</a>
             <a href="#" id="deleteAccountBtn">회원 탈퇴</a>
-            <a href="/api/admin/">회원 권한 조정</a>
+            <a href="/api/admin/users">회원 권한 조정</a>
         </th:block>
     </nav>
 
@@ -117,7 +117,7 @@
         }
     }
 
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         const deleteAccountBtn = document.getElementById('deleteAccountBtn');
         if (deleteAccountBtn) {
             deleteAccountBtn.addEventListener('click', confirmDelete);
