@@ -14,6 +14,8 @@ body {
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
     width: 300px;
+    display: block !important;
+    visibility: visible !important;
 }
 
 .logo {
@@ -62,6 +64,10 @@ button {
     cursor: pointer;
 }
 
+button:hover {
+    background-color: #45b7b0;
+}
+
 .find-links {
     text-align: center;
     margin-top: 10px;
@@ -71,4 +77,22 @@ button {
 .find-links a {
     color: #666;
     text-decoration: none;
+}
+
+.error-message {
+    color: red;
+    margin-bottom: 10px;
+}
+
+.success-message {
+    color: green;
+    margin-bottom: 10px;
+}
+
+#signin-form {
+    display: block;
+}
+
+#signup-form {
+    display: none;
 }

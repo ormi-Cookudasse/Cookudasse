@@ -23,18 +23,8 @@ import java.util.List;
 @RequestMapping(path = "/api/admin")
 @RequiredArgsConstructor
 public class AdminController {
-
     private final AdminService adminService;
     private final UserRepository userRepository;
-
-    //    @GetMapping
-    //    public ResponseEntity<?> getAdmin(Long userId) {
-    //        User user = UserRepository.findById(userId);
-    //        if (Role.MANAGER.equals(user.getRole())) {
-    //            return ResponseEntity.ok(response);
-    //        } else return ResponseEntity.notFound().build();
-
-    //    }
 
     // <관리자 페이지> 버튼 눌렀을 때 나오는 페이지 admin.html : 우선 사용자 목록 보여주기 -> 이름, email, ROLE 형식 목록, 이후 ROLE 은
     // select 창으로 변경
@@ -48,14 +38,6 @@ public class AdminController {
         model.addAttribute("role", Role.values());
         return "admin"; // 이후 관리자 페이지 admin.html 만들어야 함.
     }
-
-    // 권한 변경
-//    @PostMapping("/update")
-//    public String updateAdmin(@RequestBody AdminRequest request, Model model) {
-//        User updatedUser = adminService.updateAdmin(request);
-//        model.addAttribute("user", updatedUser);
-//        return "redirect:/";
-//    }
 
     @PostMapping("/update")
     public ResponseEntity<?> updateAdmin(@RequestBody List<AdminRequest> requests) {

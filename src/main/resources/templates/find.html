@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>아이디/비밀번호 찾기 - 요리조리</title>
-    <link rel="stylesheet" th:href="@{../static/css/login.css}">
+    <link rel="stylesheet" th:href="@{/css/login.css}">
 </head>
 <body>
 <div class="container">
     <div class="logo">
-        <img th:src="@{../static/img/mouse.png}" alt="요리조리 로고">
+        <img th:src="@{/css/logo.png}" alt="Mouse Logo">
     </div>
     <h2>아이디/비밀번호 찾기</h2>
     <div th:if="${message}" class="message" th:text="${message}"></div>
@@ -19,8 +19,24 @@
         <button type="submit">FIND YOUR ID/PASSWORD</button>
     </form>
     <div class="find-links">
-        <a th:href="@{/templates/login}">로그인 페이지로 돌아가기</a>
+        <a th:href="@{/api/auth/login}">로그인 페이지로 돌아가기</a>
     </div>
 </div>
+
+<div id="messageContainer" th:if="${message}" th:text="${message}" style="display:none;"></div>
+<div id="errorContainer" th:if="${error}" th:text="${error}" style="display:none;"></div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var message = document.getElementById('messageContainer').textContent;
+        var error = document.getElementById('errorContainer').textContent;
+        if (message) {
+            alert(message);
+        } else if (error) {
+            alert(error);
+        }
+    });
+</script>
+
 </body>
 </html>

@@ -6,7 +6,20 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+
 @Configuration
+public class WebConfig implements WebMvcConfigurer {
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new AuthInterceptor())
+                .addPathPatterns("/**")
+                .excludePathPatterns("/", "/home", "/api/auth/login", "/api/auth/signup",
+                        "/api/auth/find-password", "/login", "/logout",
+                        "/css/**", "/js/**");
+    }
+}
+
+/*@Configuration
 public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
@@ -20,4 +33,4 @@ public class WebConfig implements WebMvcConfigurer {
 //        registry.addResourceHandler("/img/**")
 //                .addResourceLocations("classpath:/static/img/");
 //    }
-}
+}*/

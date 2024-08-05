@@ -23,10 +23,8 @@ public class UserService {
   public User registerUser(SignupRequest request) {
     // 이메일 중복 검사
     if (userRepository.existsByEmail(request.getEmail())) {
-      throw new RuntimeException("Email already exists");
+      throw new RuntimeException("이미 사용중인 이메일입니다.");
     }
-
-    log.info("======== " + request.getAdminAnswer() + "===========");
 
     Role role = request.getAdminAnswer().equals("Spring!") ? Role.MANAGER : Role.ORDINARY;
 
@@ -44,22 +42,11 @@ public class UserService {
   }
 
   public User authenticate(String email, String password) {
-    User user =
-        userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
-    //        if (user.getRole() == Role.BANNED) {
-    //            throw new RuntimeException("This account is banned");
-    //        }
-    if (user != null && user.getPassword().equals(password)) {
-      return user;
+    User user = findByEmail(email);
+    if (!user.getPassword().equals(password)) { // 실제로는 암호화된 비밀번호를 비교해야 함
+      throw new RuntimeException("비밀번호가 틀렸습니다.");
     }
-    return null;
-    //        return user.getPassword().equals(password); // 주의: 실제로는 안전한 비교 방법을 사용해야 합니다
-  }
-
-  public User findByEmail(String email) {
-    return userRepository
-        .findByEmail(email)
-        .orElseThrow(() -> new RuntimeException("User not found"));
+    return user;
   }
 
   public void deleteUser(String email) {
@@ -67,14 +54,23 @@ public class UserService {
     userRepository.delete(user);
   }
 
+  public User findByEmail(String email) {
+    log.info("======== " + email + "==========");
+    return userRepository
+            .findByEmail(email)
+            .orElseThrow(() -> new RuntimeException("사용자 정보가 존재하지 않습니다."));
+  }
+
   public String findUsernameByEmail(String email) {
     return findByEmail(email).getUsername();
   }
 
-  public void initiatePasswordReset(String email) {
+  public String initiatePasswordReset(String email) {
     User user = findByEmail(email);
-    // 비밀번호 재설정 로직 구현 (예: 임시 비밀번호 생성 및 이메일 발송)
-    System.out.println("Password reset initiated for user: " + user.getUsername());
+    // 실제 비밀번호 재설정 대신 메시지 반환
+    String message = "비밀번호 재설정 링크가 " + user.getEmail() + "로 전송되었습니다. (실제로는 전송되지 않음)";
+    System.out.println(message);
+    return message;
   }
 
   public void changeUserRole(String email, Role newRole) {
