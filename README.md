@@ -30,11 +30,10 @@
 - 데이터베이스 : MySQL
 - ORM : JPA
 - 배포환경 : AWS EC2, RDS, Docker
-- 협업도구 : GitHub, Notion, ERD Cloud, Figma
+- 협업도구 : GitHub, Notion, DB diagram, Figma
 
 ### 2. **기능 명세서**
-- [기능명세서 링크 바로가기](https://www.notion.so/oreumi/2743c6d7907248dd91a9a308c0290899)
-
+- [기능_명세서.pdf](https://github.com/user-attachments/files/16504614/_.pdf)
 
 ## ✨UI(화면) 설계서 
 
@@ -43,15 +42,15 @@
 |                                                                                                                       |                                                                                                                   |
 |-----------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------|
 | Main Page (Member)                                                                                                    | Main Page (Guest)                                                                                                 |
-| ![요리조리 멤버 홈페이지](https://github.com/user-attachments/assets/e9974255-f138-41f6-adc1-54690ae1e452) |  ![요리조리 게스트화면](https://github.com/user-attachments/assets/3ab143ad-5d69-4aab-aaac-aa016bf8e85f)
-| Main Page (Admin)                                                                                                     | SignUp Page                                                                                                       |
-| ![요리조리 관리자 홈페이지](https://github.com/user-attachments/assets/6d927945-6215-4964-88c6-ebf32c734bab) | ![요리조리 회원가입](https://github.com/user-attachments/assets/ad287ff9-46e5-4bab-a328-a0636b113f4d)
-| SignIn Page                                                                                                           | Modify-info Page                                                                                                  |
-| ![요리조리 로그인](https://github.com/user-attachments/assets/3d0895cb-baba-4556-8215-e49ac44fff5b)          | ![요리조리 마이페이지 정보수정](https://github.com/user-attachments/assets/26049d18-c90f-4524-9a1a-1689aeef3b57) |
-| Find ID / Password Page                                                                                               | Manage Member Authorization                                                                                              |
+| ![요리조리 멤버 홈페이지](https://github.com/user-attachments/assets/e9974255-f138-41f6-adc1-54690ae1e452) | ![게스트 화면](https://github.com/user-attachments/assets/87f8722d-4eeb-4b61-a61a-938c878e3364)|
+| SignUp Page                                                                                              | SignIn Page  
+| ![요리조리 회원가입](https://github.com/user-attachments/assets/ad287ff9-46e5-4bab-a328-a0636b113f4d)      | ![요리조리 로그인](https://github.com/user-attachments/assets/3d0895cb-baba-4556-8215-e49ac44fff5b)                           |
+| MyPage Info Select                                                                                        | Modify-info Page                                                                                                  |
+| ![요리조리 마이페이지 정보 선택](https://github.com/user-attachments/assets/6849807d-486a-4dd9-9446-229def53e687)       | ![요리조리 마이페이지 정보수정](https://github.com/user-attachments/assets/26049d18-c90f-4524-9a1a-1689aeef3b57) |
+| Find ID / Password Page                                                                                               | Manage Member Authorization                                                                                       |
 | ![요리조리 아이디비번 찾기](https://github.com/user-attachments/assets/e0d001e7-9666-4e45-80a2-fc3a97fe882e) | ![요리조리 회원 권환 관리](https://github.com/user-attachments/assets/f3a70b2d-59be-4484-b8ec-b32d4cddbb8a)    |
-| Board Write Page                                                                                                      | MyPage Info Select                                                                                             |
-| ![요리조리 게시글 생성 화면](https://github.com/user-attachments/assets/870cc776-8e68-4d64-af6f-921d5b35924a) | ![요리조리 마이페이지 정보 선택](https://github.com/user-attachments/assets/6849807d-486a-4dd9-9446-229def53e687)    |
+| Board Write Page                                                                                             |
+| ![요리조리 게시글 생성 화면](https://github.com/user-attachments/assets/870cc776-8e68-4d64-af6f-921d5b35924a) |
 
 ## 📂Project Structure
 
@@ -179,7 +178,7 @@
 ![시스템 구조](https://github.com/user-attachments/assets/c89728f8-868a-450e-873b-17fd510c5ba8)
 
 ## 🔐ERD Structure
-![erd-diagram](https://github.com/user-attachments/assets/34be3e11-e162-4bd6-af22-bedc990665ca)
+![erd-diagram](https://github.com/user-attachments/assets/0f301366-3090-46d4-95d4-6f366251009a)
 
 ## ♒배포 흐름도
 ![배포 흐름도](https://github.com/user-attachments/assets/46e6bb59-14c9-4b89-84c4-65e14630f7ee)
