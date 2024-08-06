@@ -7,8 +7,6 @@
 
 > 다양한 음식과 그에 해당하는 조리법이 궁금한 사람들을 위한 커뮤니티 👉 [[링크]](http://52.78.28.171:8080/)
 
-## 메인 페이지 이미지 추가
-
 ## 📖Description
 
 ### 주제
@@ -31,7 +29,7 @@
 - 백엔드 : Spring Boot
 - 데이터베이스 : MySQL
 - ORM : JPA
-- 배포환경 : AWS EC2, RDS
+- 배포환경 : AWS EC2, RDS, Docker
 - 협업도구 : GitHub, Notion, ERD Cloud, Figma
 
 ### 2. **기능 명세서**
@@ -45,7 +43,7 @@
 |                                                                                                                       |                                                                                                                   |
 |-----------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------|
 | Main Page (Member)                                                                                                    | Main Page (Guest)                                                                                                 |
-| ![요리조리 멤버 홈페이지](https://github.com/user-attachments/assets/e9974255-f138-41f6-adc1-54690ae1e452) |  
+| ![요리조리 멤버 홈페이지](https://github.com/user-attachments/assets/e9974255-f138-41f6-adc1-54690ae1e452) |  ![요리조리 게스트화면](https://github.com/user-attachments/assets/3ab143ad-5d69-4aab-aaac-aa016bf8e85f)
 | Main Page (Admin)                                                                                                     | SignUp Page                                                                                                       |
 | ![요리조리 관리자 홈페이지](https://github.com/user-attachments/assets/6d927945-6215-4964-88c6-ebf32c734bab) | ![요리조리 회원가입](https://github.com/user-attachments/assets/ad287ff9-46e5-4bab-a328-a0636b113f4d)
 | SignIn Page                                                                                                           | Modify-info Page                                                                                                  |
@@ -76,11 +74,24 @@
      |          ├── 📃 admin.js
      |          ├── 📃 home.js
      |          ├── 📃 login.js
-     |          ├── 📃 noticeScript.js
      |          └── 📃 script.js
      └── 📁 templates
            ├── 📁 comment
+           |    ├── 📁 css
+           |    |    └── 📃 comment.css
+           |    └── 📁 html
+           |    |    └── 📃 comment.html
            ├── 📁 search
+           |    ├── 📁 css
+           |    |    └── 📃 search.css
+           |    ├── 📁 html
+           |    |    └── 📃 search.html
+           |    ├── 📁 img
+           |    |    ├── 📃 food.png
+           |    |    ├── 📃 mouse.png
+           |    |    └── 📃 searchIcon-black.png
+           |    └── 📁 script
+           |         └── 📃 search.js
            ├── 📃 admin.html
            ├── 📃 editNotice.html
            ├── 📃 editPost.html
@@ -100,20 +111,20 @@
 │   ├── 📁 application
 |   |   └── 📃 AdminService.java
 │   └── 📁 dto
-|   |    ├── 📃 AdminRequest.java
-|   |    └── 📃 AdminResponse.java
+|   |   ├── 📃 AdminRequest.java
+|   |   └── 📃 AdminResponse.java
 │   └── 📁 presentation
-|        └── 📃 AdminController.java
+|       └── 📃 AdminController.java
 ├── 📁 auth
 │   ├── 📁 controller
 |   |   └── 📃 AuthController.java
 │   ├── 📁 domain
-|   |    ├── 📃 Role.java
-|   |    └── 📃 User.java
+|   |   ├── 📃 Role.java
+|   |   └── 📃 User.java
 │   ├── 📁 dto
-|   |    ├── 📃 FindPasswordRequest.java
-|   |    ├── 📃 LoginRequest.java
-|   |    └── 📃 SignupRequest.java
+|   |   ├── 📃 FindPasswordRequest.java
+|   |   ├── 📃 LoginRequest.java
+|   |   └── 📃 SignupRequest.java
 │   ├── 📁 repository
 |   |   └── 📃 UserRepository.java
 │   └── 📁 service
@@ -128,6 +139,8 @@
 |   |   └── 📃 JpaConfig.java
 │   └── 📁 web
 |       └── 📃 WebConfig.java
+├── 📁 exception
+|   └── 📃 GlobalExceptionHandler.java
 ├── 📁 home/controller
 │   └── 📃 HomeController.java
 ├── 📁 notice
@@ -150,14 +163,14 @@
     |   └── 📁 request
     |        └── 📃 PostSaveResponse.java
     ├── 📁 entity
-    |    ├── 📃 FoodCategory.java
-    |    ├── 📃 Post.java
-    |    └── 📃 PostDetail.java
+    |   ├── 📃 FoodCategory.java
+    |   ├── 📃 Post.java
+    |   └── 📃 PostDetail.java
     ├── 📁 repository
-    |    ├── 📃 PostDetailRepository.java
-    |    └── 📃 PostRepository.java
+    |   ├── 📃 PostDetailRepository.java
+    |   └── 📃 PostRepository.java
     └── 📁 service
-         └── 📃 PostService.java
+        └── 📃 PostService.java
 
 
 ```
@@ -167,6 +180,10 @@
 
 ## 🔐ERD Structure
 ![erd-diagram](https://github.com/user-attachments/assets/34be3e11-e162-4bd6-af22-bedc990665ca)
+
+## ♒배포 흐름도
+![배포 흐름도](https://github.com/user-attachments/assets/46e6bb59-14c9-4b89-84c4-65e14630f7ee)
+
 ## 🎈API 명세서
 
 ### 🧑‍🍳 글 목록 조회 / 댓글
@@ -225,6 +242,18 @@
 | findPassword | POST  | /api/users/find-password | 비밀번호 찾기 |  |  |  |
 
 ## 🎞시연 영상
+---
+
+https://github.com/user-attachments/assets/ac982001-9f58-4587-812e-8742355a9cc3
+
+
+https://github.com/user-attachments/assets/b92e2f32-8812-4194-9f33-5b24e20c112a
+
+
+https://github.com/user-attachments/assets/f083f64f-840f-48e5-9208-7830f7021c62
+
+
+https://github.com/user-attachments/assets/cec5d63c-8d8b-42a6-a15c-08fb80474d6b
 
 
 
