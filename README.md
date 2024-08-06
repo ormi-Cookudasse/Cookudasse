@@ -45,7 +45,7 @@
 |                                                                                                                       |                                                                                                                   |
 |-----------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------|
 | Main Page (Member)                                                                                                    | Main Page (Guest)                                                                                                 |
-| ![요리조리 멤버 홈페이지](https://github.com/user-attachments/assets/e9974255-f138-41f6-adc1-54690ae1e452) |  
+| ![요리조리 멤버 홈페이지](https://github.com/user-attachments/assets/e9974255-f138-41f6-adc1-54690ae1e452) |  ![요리조리 게스트화면](https://github.com/user-attachments/assets/3ab143ad-5d69-4aab-aaac-aa016bf8e85f)
 | Main Page (Admin)                                                                                                     | SignUp Page                                                                                                       |
 | ![요리조리 관리자 홈페이지](https://github.com/user-attachments/assets/6d927945-6215-4964-88c6-ebf32c734bab) | ![요리조리 회원가입](https://github.com/user-attachments/assets/ad287ff9-46e5-4bab-a328-a0636b113f4d)
 | SignIn Page                                                                                                           | Modify-info Page                                                                                                  |
