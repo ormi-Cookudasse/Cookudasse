@@ -22,8 +22,7 @@
 
 
 ### 1. 💾**개발 환경**
-![시스템 구조](https://github.com/user-attachments/assets/a00d2f53-250b-46f3-a141-7157af39a3a8)
-
+![개발환경](https://github.com/user-attachments/assets/e4d258b9-2623-4b15-87ca-2adb51daaecb)
 - Java JDK 17, JavaScript
 - 프론트엔드 : HTML, CSS, JS
 - 백엔드 : Spring Boot
@@ -32,11 +31,22 @@
 - 배포환경 : AWS EC2, RDS, Docker
 - 협업도구 : GitHub, Notion, DB diagram, Figma
 
-### 2. **기능 명세서**
-- [기능_명세서.pdf](https://github.com/user-attachments/files/16504614/_.pdf)
+## 2. **기능 명세서**
+- 게시판   
+![글 목록](https://github.com/user-attachments/assets/b4f2073b-be2a-406d-86a6-82658bc11482)   
+![글 쓰기](https://github.com/user-attachments/assets/4e9bdaf4-4420-4c02-a74d-f244919c5a2b)     
+![글 수정](https://github.com/user-attachments/assets/cb0d5c89-1937-47be-a198-70b73e43e9ac)     
+![글 삭제](https://github.com/user-attachments/assets/b403f193-1bfc-4a19-8512-875708946f8f)      
+![글 조회 페이지](https://github.com/user-attachments/assets/f737446a-8b12-490d-807d-157637555323)   
 
-## ✨UI(화면) 설계서 
+- 회원 및 관리자   
+![로그인](https://github.com/user-attachments/assets/18f690d3-022e-4a32-8f31-914fe1b63b62)   
+![회원가입](https://github.com/user-attachments/assets/16ab975b-6bfc-444d-a255-b677559721dc)   
+![로그아웃 탈퇴](https://github.com/user-attachments/assets/7e36707c-27b6-4395-8018-90a25abacf2b)   
+![관리자 페이지](https://github.com/user-attachments/assets/7a9c55c2-78a2-4316-8e04-251e550ea340)   
 
+
+## 3. ✨UI(화면) 설계서 
 - [피그마 링크 바로가기](https://www.figma.com/design/aozGh2OXMbjzGZTOw2yqdf/Food%2FCooking-Recipe-website-design-(Community)?node-id=0-3&t=rwlxgjsQjsXHZpRp-0)
 
 |                                                                                                                       |                                                                                                                   |
@@ -52,7 +62,8 @@
 | Board Write Page                                                                                             |
 | ![요리조리 게시글 생성 화면](https://github.com/user-attachments/assets/870cc776-8e68-4d64-af6f-921d5b35924a) |
 
-## 📂Project Structure
+## 4. 📖개발일정
+![개발 일정표](https://github.com/user-attachments/assets/b7326bec-829f-4b05-812f-4b94a468b820)
 
 ### 🌐 Front-End
 ```
