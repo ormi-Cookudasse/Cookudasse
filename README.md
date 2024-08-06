@@ -7,8 +7,6 @@
 
 > 다양한 음식과 그에 해당하는 조리법이 궁금한 사람들을 위한 커뮤니티 👉 [[링크]](http://52.78.28.171:8080/)
 
-## 메인 페이지 이미지 추가
-
 ## 📖Description
 
 ### 주제
@@ -31,7 +29,7 @@
 - 백엔드 : Spring Boot
 - 데이터베이스 : MySQL
 - ORM : JPA
-- 배포환경 : AWS EC2, RDS
+- 배포환경 : AWS EC2, RDS, Docker
 - 협업도구 : GitHub, Notion, ERD Cloud, Figma
 
 ### 2. **기능 명세서**
@@ -76,11 +74,24 @@
      |          ├── 📃 admin.js
      |          ├── 📃 home.js
      |          ├── 📃 login.js
-     |          ├── 📃 noticeScript.js
      |          └── 📃 script.js
      └── 📁 templates
            ├── 📁 comment
+           |    ├── 📁 css
+           |    |    └── 📃 comment.css
+           |    └── 📁 html
+           |    |    └── 📃 comment.html
            ├── 📁 search
+           |    ├── 📁 css
+           |    |    └── 📃 search.css
+           |    ├── 📁 html
+           |    |    └── 📃 search.html
+           |    ├── 📁 img
+           |    |    ├── 📃 food.png
+           |    |    ├── 📃 mouse.png
+           |    |    └── 📃 searchIcon-black.png
+           |    └── 📁 script
+           |         └── 📃 search.js
            ├── 📃 admin.html
            ├── 📃 editNotice.html
            ├── 📃 editPost.html
@@ -100,20 +111,20 @@
 │   ├── 📁 application
 |   |   └── 📃 AdminService.java
 │   └── 📁 dto
-|   |    ├── 📃 AdminRequest.java
-|   |    └── 📃 AdminResponse.java
+|   |   ├── 📃 AdminRequest.java
+|   |   └── 📃 AdminResponse.java
 │   └── 📁 presentation
-|        └── 📃 AdminController.java
+|       └── 📃 AdminController.java
 ├── 📁 auth
 │   ├── 📁 controller
 |   |   └── 📃 AuthController.java
 │   ├── 📁 domain
-|   |    ├── 📃 Role.java
-|   |    └── 📃 User.java
+|   |   ├── 📃 Role.java
+|   |   └── 📃 User.java
 │   ├── 📁 dto
-|   |    ├── 📃 FindPasswordRequest.java
-|   |    ├── 📃 LoginRequest.java
-|   |    └── 📃 SignupRequest.java
+|   |   ├── 📃 FindPasswordRequest.java
+|   |   ├── 📃 LoginRequest.java
+|   |   └── 📃 SignupRequest.java
 │   ├── 📁 repository
 |   |   └── 📃 UserRepository.java
 │   └── 📁 service
@@ -152,14 +163,14 @@
     |   └── 📁 request
     |        └── 📃 PostSaveResponse.java
     ├── 📁 entity
-    |    ├── 📃 FoodCategory.java
-    |    ├── 📃 Post.java
-    |    └── 📃 PostDetail.java
+    |   ├── 📃 FoodCategory.java
+    |   ├── 📃 Post.java
+    |   └── 📃 PostDetail.java
     ├── 📁 repository
-    |    ├── 📃 PostDetailRepository.java
-    |    └── 📃 PostRepository.java
+    |   ├── 📃 PostDetailRepository.java
+    |   └── 📃 PostRepository.java
     └── 📁 service
-         └── 📃 PostService.java
+        └── 📃 PostService.java
 
 
 ```
@@ -231,6 +242,18 @@
 | findPassword | POST  | /api/users/find-password | 비밀번호 찾기 |  |  |  |
 
 ## 🎞시연 영상
+---
+
+https://github.com/user-attachments/assets/ac982001-9f58-4587-812e-8742355a9cc3
+
+
+https://github.com/user-attachments/assets/b92e2f32-8812-4194-9f33-5b24e20c112a
+
+
+https://github.com/user-attachments/assets/f083f64f-840f-48e5-9208-7830f7021c62
+
+
+https://github.com/user-attachments/assets/cec5d63c-8d8b-42a6-a15c-08fb80474d6b
 
 
 
