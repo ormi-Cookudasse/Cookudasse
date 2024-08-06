@@ -128,6 +128,8 @@
 |   |   └── 📃 JpaConfig.java
 │   └── 📁 web
 |       └── 📃 WebConfig.java
+├── 📁 exception
+|   └── 📃 GlobalExceptionHandler.java
 ├── 📁 home/controller
 │   └── 📃 HomeController.java
 ├── 📁 notice
@@ -167,6 +169,10 @@
 
 ## 🔐ERD Structure
 ![erd-diagram](https://github.com/user-attachments/assets/34be3e11-e162-4bd6-af22-bedc990665ca)
+
+## ♒배포 흐름도
+![배포 흐름도](https://github.com/user-attachments/assets/46e6bb59-14c9-4b89-84c4-65e14630f7ee)
+
 ## 🎈API 명세서
 
 ### 🧑‍🍳 글 목록 조회 / 댓글
