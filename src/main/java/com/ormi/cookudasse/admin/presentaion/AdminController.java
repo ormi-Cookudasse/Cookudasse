@@ -22,17 +22,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AdminController {
     private final AdminService adminService;
-    private final UserRepository userRepository;
 
     // <관리자 페이지> 버튼 눌렀을 때 나오는 페이지 admin.html : 우선 사용자 목록 보여주기 -> 이름, email, ROLE 형식 목록, 이후 ROLE 은
     // select 창으로 변경
     @GetMapping("/users")
     public String getAllUsers(Model model, HttpSession session) {
         checkAdmin(session);
-        List<User> users = new ArrayList<>();
-        users.addAll(userRepository.findAllByRole(Role.BANNED));
-        users.addAll(userRepository.findAllByRole(Role.ORDINARY));
-        model.addAttribute("users", users);
+        model.addAttribute("users", adminService.getUsers());
         model.addAttribute("role", Role.values());
         return "admin"; // 이후 관리자 페이지 admin.html 만들어야 함.
     }

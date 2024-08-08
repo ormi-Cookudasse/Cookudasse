@@ -34,6 +34,4 @@ public class Comment {
 
 
     }
-
-    // 생성자, getter, setter 등
 }

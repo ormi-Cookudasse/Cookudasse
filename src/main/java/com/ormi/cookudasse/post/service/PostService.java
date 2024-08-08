@@ -2,8 +2,8 @@ package com.ormi.cookudasse.post.service;
 
 
 import com.ormi.cookudasse.auth.domain.User;
+import com.ormi.cookudasse.auth.repository.UserRepository;
 import com.ormi.cookudasse.post.dto.request.PostRequest;
-import com.ormi.cookudasse.post.dto.response.PostSaveResponse;
 import com.ormi.cookudasse.post.entitiy.Post;
 import com.ormi.cookudasse.post.entitiy.PostDetail;
 import com.ormi.cookudasse.post.repository.PostDetailRepository;
@@ -20,10 +20,17 @@ import java.util.List;
 public class PostService {
     private final PostRepository postRepository;
     private final PostDetailRepository postDetailRepository;
+    private final UserRepository userRepository;
 
 
     public void createPost(PostRequest postRequest, User user, MultipartFile file) {
-//        User findUser = userRepository.findById(user.getUserId~); // TODO 추후 로그인 방식 정해지면 수정 필요(entity X dto 생성하거나 user의 id 만 받아온 뒤, 해당 UserRepository 에서 조회해서 가져온 user를 저장!
+    User findUser =
+        userRepository
+            .findById(user.getId())
+            .orElseThrow(
+                () ->
+                    new RuntimeException(
+                        "사용자를 찾을 수 없습니다."));
 
         PostDetail postDetail = PostDetail.builder()
                 .postTitle(postRequest.getPostTitle())
@@ -33,9 +40,8 @@ public class PostService {
                 .build();
 
         Post post = Post.builder()
-//                        .user(findUser)
+                .user(findUser)
                 .postDetail(postDetail)
-                // 생성 시간 설정
                 .build();
 
         if (file != null && !file.isEmpty()) {
@@ -59,7 +65,7 @@ public class PostService {
     public int incrementLike(Long postId) {
         Post post = getPostById(postId);
         PostDetail postDetail = post.getPostDetail();
-        postDetail.setPostLike(postDetail.getPostLike() + 1);
+        postDetail.addPostLike();
         postDetailRepository.save(postDetail);
         return postDetail.getPostLike();
     }
@@ -67,7 +73,7 @@ public class PostService {
     public int incrementView(Long postId) {
         Post post = getPostById(postId);
         PostDetail postDetail = post.getPostDetail();
-        postDetail.setPostView(postDetail.getPostView() + 1);
+        postDetail.addPostView();
         postDetailRepository.save(postDetail);
         return postDetail.getPostView();
     }
