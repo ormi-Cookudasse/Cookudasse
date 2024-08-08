@@ -1,6 +1,7 @@
 package com.ormi.cookudasse.post.entitiy;
 
 
+import com.ormi.cookudasse.post.dto.request.PostRequest;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -37,6 +38,14 @@ public class PostDetail {
 
     public void addPostView() {
         this.postView++;
+    }
+
+    public PostDetail updatePostDetail(PostRequest postRequest) {
+        this.postTitle = postRequest.getPostTitle();
+        this.foodCategory = postRequest.getFoodCategory();
+        this.ingredients = postRequest.getIngredients();
+        this.recipe = postRequest.getRecipe();
+        return this;
     }
 
 }

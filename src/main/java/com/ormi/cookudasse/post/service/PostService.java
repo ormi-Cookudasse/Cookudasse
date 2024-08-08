@@ -88,13 +88,9 @@ public class PostService {
 
     public void updatePost(Long id, PostRequest request) {
         Post post = getPostById(id);
-        PostDetail updatedPostDetail = post.getPostDetail();
-        updatedPostDetail.setPostTitle(request.getPostTitle());
-        updatedPostDetail.setFoodCategory(request.getFoodCategory());
-        updatedPostDetail.setIngredients(request.getIngredients());
-        updatedPostDetail.setRecipe(request.getRecipe());
-        postDetailRepository.save(updatedPostDetail);
-        post.setPostDetail(updatedPostDetail);
+        PostDetail postDetail = post.getPostDetail();
+    postDetail.updatePostDetail(request);
+        postDetailRepository.save(postDetail);
     }
 
     public void deletePost(Long id) {
