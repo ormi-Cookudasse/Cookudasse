@@ -36,8 +36,7 @@ public class NoticeService {
     @Transactional
     public void updateNotice(Long noticeId, NoticeRequest noticeRequest) {
         Notice findNotice = noticeRepository.findById(noticeId).orElseThrow(() -> new RuntimeException("Notice not found"));
-        findNotice.setTitle(noticeRequest.getTitle());
-        findNotice.setContent(noticeRequest.getContent());
+        findNotice.updateNotice(noticeRequest.getTitle(), noticeRequest.getContent());
     }
 
     @Transactional

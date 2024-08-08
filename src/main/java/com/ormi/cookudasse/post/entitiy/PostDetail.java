@@ -1,12 +1,12 @@
 package com.ormi.cookudasse.post.entitiy;
 
 
+import com.ormi.cookudasse.post.dto.request.PostRequest;
 import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
 @Getter
-@Setter
 @NoArgsConstructor
 @Builder
 @AllArgsConstructor
@@ -32,5 +32,20 @@ public class PostDetail {
 
     private int postLike;
 
+    public void addPostLike() {
+        this.postLike++;
+    }
+
+    public void addPostView() {
+        this.postView++;
+    }
+
+    public PostDetail updatePostDetail(PostRequest postRequest) {
+        this.postTitle = postRequest.getPostTitle();
+        this.foodCategory = postRequest.getFoodCategory();
+        this.ingredients = postRequest.getIngredients();
+        this.recipe = postRequest.getRecipe();
+        return this;
+    }
 
 }

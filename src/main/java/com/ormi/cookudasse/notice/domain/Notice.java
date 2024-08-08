@@ -9,7 +9,6 @@ import lombok.*;
 
 @Entity
 @Getter
-@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,4 +20,9 @@ public class Notice extends BaseEntity {
 
     private String title;
     private String content;
+
+    public void updateNotice(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
 }

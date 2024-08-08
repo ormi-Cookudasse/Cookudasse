@@ -68,14 +68,8 @@ public class UserService {
   public String initiatePasswordReset(String email) {
     User user = findByEmail(email);
     // 실제 비밀번호 재설정 대신 메시지 반환
-    String message = "비밀번호 재설정 링크가 " + user.getEmail() + "로 전송되었습니다. (실제로는 전송되지 않음)";
+    String message = "비밀번호 재설정 링크가 " + user.getEmail() + "로 전송되었습니다.";
     System.out.println(message);
     return message;
-  }
-
-  public void changeUserRole(String email, Role newRole) {
-    User user = findByEmail(email);
-    user.setRole(newRole);
-    userRepository.save(user);
   }
 }

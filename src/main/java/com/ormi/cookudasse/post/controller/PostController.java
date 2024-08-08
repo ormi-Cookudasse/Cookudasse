@@ -1,6 +1,6 @@
 package com.ormi.cookudasse.post.controller;
 
-import com.ormi.cookudasse.auth.domain.Role;
+import com.ormi.cookudasse.admin.application.AdminService;
 import com.ormi.cookudasse.auth.domain.User;
 import com.ormi.cookudasse.post.dto.request.PostRequest;
 import com.ormi.cookudasse.post.entitiy.FoodCategory;
@@ -25,20 +25,20 @@ import java.util.Map;
 public class PostController {
     private final PostService postService;
     private final CommentService commentService;
+    private final AdminService adminService;
 
     @GetMapping("/write")
     public String showWriteForm(Model model, HttpSession session) {
-    checkAdmin(session);
+        adminService.checkAdmin(session);
         model.addAttribute("postDetail", new PostDetail());
         model.addAttribute("foodCategories", FoodCategory.values());
         return "writePost";
     }
     @PostMapping(value = "/write", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public String createPost(@ModelAttribute PostRequest postRequest,
-                             @RequestPart(value = "file", required = false) MultipartFile file) {
-
-        User user = new User(); // 임시 사용자 생성
-        user.setId(1L);
+                             @RequestPart(value = "file", required = false) MultipartFile file,
+                             HttpSession session) {
+        User user = (User) session.getAttribute("user");
         postService.createPost(postRequest, user, file);
         return "redirect:/";
     }
@@ -46,7 +46,7 @@ public class PostController {
 
     @GetMapping("/post/{id}")
     public String showPost(@PathVariable(name = "id") Long id, Model model, HttpSession session) {
-        checkAdmin(session);
+        adminService.checkAdmin(session);
         Post post = postService.getPostById(id);
         postService.incrementView(id);  // 조회수 증가
         model.addAttribute("post", post.getPostDetail());
@@ -84,7 +84,7 @@ public class PostController {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/post/{id}/delete")
+    @DeleteMapping("/post/{id}/delete")
     public String deletePost(@PathVariable(name = "id") Long id) {
         postService.deletePost(id);
         return "redirect:/";
@@ -95,13 +95,5 @@ public class PostController {
     public ResponseEntity<String> handleFileUpload(@RequestPart("file") MultipartFile file) {
         // 파일 처리 로직
         return ResponseEntity.ok("File uploaded successfully");
-    }
-
-
-    private void checkAdmin(HttpSession session) {
-        User user = (User) session.getAttribute("user");
-        if (user == null || user.getRole().equals(Role.BANNED)) {
-            throw new RuntimeException("정지된 회원은 접근이 제한된 기능입니다.");
-        }
     }
 }

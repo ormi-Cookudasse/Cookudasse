@@ -1,13 +1,11 @@
 package com.ormi.cookudasse.notice.presentation;
 
-import com.ormi.cookudasse.auth.domain.Role;
-import com.ormi.cookudasse.auth.domain.User;
+import com.ormi.cookudasse.admin.application.AdminService;
 import com.ormi.cookudasse.notice.application.NoticeService;
 import com.ormi.cookudasse.notice.domain.Notice;
 import com.ormi.cookudasse.notice.dto.request.NoticeRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,10 +15,11 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class NoticeController {
   private final NoticeService noticeService;
+  private final AdminService adminService;
 
   @GetMapping("/write")
   public String showWriteForm(Model model, HttpSession session) {
-    checkAdmin(session);
+    adminService.checkAdmin(session);
     model.addAttribute("notice", new Notice());
     return "writeNotice";
   }
@@ -41,7 +40,7 @@ public class NoticeController {
   @GetMapping("/{id}/edit")
   public String showEditNotice(
       @PathVariable(name = "id") Long id, Model model, HttpSession session) {
-    checkAdmin(session);
+    adminService.checkAdmin(session);
     Notice noticeById = noticeService.getNoticeById(id);
     model.addAttribute("notice", noticeById);
     return "editNotice";
@@ -52,22 +51,15 @@ public class NoticeController {
       @PathVariable(name = "id") Long id,
       @ModelAttribute NoticeRequest noticeRequest,
       HttpSession session) {
-    checkAdmin(session);
+    adminService.checkAdmin(session);
     noticeService.updateNotice(id, noticeRequest);
     return "redirect:/api/notice/" + id;
   }
 
-  @PostMapping("/{id}/delete")
+  @DeleteMapping("/{id}/delete")
   public String deleteNotice(@PathVariable(name = "id") Long id, HttpSession session) {
-    checkAdmin(session);
+    adminService.checkAdmin(session);
     noticeService.deleteNotice(id);
     return "redirect:/";
-  }
-
-  private void checkAdmin(HttpSession session) {
-    User user = (User) session.getAttribute("user");
-    if (user == null || !user.getRole().equals(Role.MANAGER)) {
-      throw new RuntimeException("관리자만 접근할 수 있습니다.");
-    }
   }
 }
